@@ -24,7 +24,11 @@
       <KeyComponent @key-pressed="key" character="L" state="fresh" />
     </div>
     <div class="flex gap-2 max-w-6xl justify-between mx-auto">
-      <KeyComponent @key-pressed="key" character="Enter" state="fresh" />
+      <KeyComponent @key-pressed="key" character="Enter" state="fresh">
+        <template #viewer>
+          <font-awesome-icon icon="fa-solid fa-check" />
+        </template>
+      </KeyComponent>
       <KeyComponent @key-pressed="key" character="Y" state="fresh" />
       <KeyComponent @key-pressed="key" character="X" state="fresh" />
       <KeyComponent @key-pressed="key" character="C" state="fresh" />
@@ -32,7 +36,11 @@
       <KeyComponent @key-pressed="key" character="B" state="fresh" />
       <KeyComponent @key-pressed="key" character="N" state="fresh" />
       <KeyComponent @key-pressed="key" character="M" state="fresh" />
-      <KeyComponent @key-pressed="key" character="Backsp" state="fresh" />
+      <KeyComponent @key-pressed="key" character="Backspace" state="fresh">
+        <template #viewer>
+          <font-awesome-icon icon="fa-solid fa-delete-left" />
+        </template>
+      </KeyComponent>
     </div>
   </div>
 </template>

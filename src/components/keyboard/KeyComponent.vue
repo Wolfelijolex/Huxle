@@ -1,16 +1,25 @@
 <template>
   <div
     @click="emit('keyPressed', props.character)"
-    :class="props.state"
-    class="p-2 px-3 rounded text-sm font-bold cursor-pointer"
+    :class="{
+      fresh: props.state === 'fresh',
+      notIncluded: props.state === 'not-included',
+      wrongPos: props.state === 'wrong-pos',
+      correct: props.state === 'correct',
+      wider: !!$slots.viewer,
+    }"
+    class="rounded text-sm font-bold cursor-pointer text-center"
   >
-    {{ props.character.toUpperCase() }}
+    <slot name="viewer">
+      {{ props.character.toUpperCase() }}
+    </slot>
   </div>
 </template>
 
 <script lang="ts" setup>
 type Props = {
   character: string;
+  customIcon?: string;
   state: "fresh" | "not-included" | "wrong-pos" | "correct";
 };
 
@@ -20,19 +29,29 @@ const emit = defineEmits(["keyPressed"]);
 </script>
 
 <style lang="scss" scoped>
-.fresh {
-  @apply bg-gray-300;
-}
+div {
+  width: 2rem;
+  height: 2.5rem;
+  line-height: 2.5rem;
 
-.not-included {
-  @apply bg-gray-600;
-}
+  &.wider {
+    width: 3.25rem;
+  }
 
-.wrong-pos {
-  @apply bg-yellow-500;
-}
+  .fresh {
+    @apply bg-gray-300;
+  }
 
-.correct {
-  @apply bg-green-600;
+  .notIncluded {
+    @apply bg-gray-600;
+  }
+
+  .wrongPos {
+    @apply bg-yellow-500;
+  }
+
+  .correct {
+    @apply bg-green-600;
+  }
 }
 </style>
