@@ -1,3 +1,13 @@
 {
-  "createdSuccessfully": "You’ve successfully created a project with"
+  "createdSuccessfully": "You’ve successfully created a project with",
+  "huxle": "Huxle",
+  "global": {
+    "admin": "Admin"
+  },
+  "admin": {
+    "create": "Create a new Huxle",
+    "createLink": "Create Link",
+    "englishWord": "English word",
+    "germanWord": "German word"
+  }
 }

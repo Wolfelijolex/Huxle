@@ -19,7 +19,6 @@
 <script lang="ts" setup>
 type Props = {
   character: string;
-  customIcon?: string;
   state: "fresh" | "not-included" | "wrong-pos" | "correct";
 };
 

@@ -1,3 +1,13 @@
 {
-  "createdSuccessfully": "Du hat erfolgreich ein Projekt erstellt mit"
+  "createdSuccessfully": "Du hat erfolgreich ein Projekt erstellt mit",
+  "huxle": "Huxle",
+  "global": {
+    "admin": "Admin"
+  },
+  "admin": {
+    "create": "Neues Huxle erstellen",
+    "createLink": "Link generieren",
+    "englishWord": "Englisch",
+    "germanWord": "Deutsch"
+  }
 }

@@ -2,7 +2,7 @@ import { createI18n } from "vue-i18n";
 import en from "./en.json";
 import de from "./de.json";
 
-export const availableLocales = ["de", "en"];
+export const availableLocales = ["de", "en"] as const;
 
 export const i18n = createI18n({
   messages: {
