@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 import TextInput from "@/components/TextInput.vue";
-import type { GameSettings } from "@/utils/encoder.util";
+import { toEncodedUrl, type GameSettings } from "@/utils/encoder.util";
 import { ref } from "vue";
 
 const englishWord = ref("");
@@ -24,8 +24,8 @@ function createLink() {
   };
 
   try {
-    const encoded = btoa(JSON.stringify(data));
-    console.log(`http://localhost:5173/${encoded}`);
+    const url = toEncodedUrl(data);
+    console.log("Visit the following page to play:", url);
   } catch (error) {
     console.error(error);
   }

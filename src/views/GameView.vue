@@ -7,8 +7,7 @@
 
 <script lang="ts" setup>
 import KeyboardComponent from "@/components/keyboard/KeyboardComponent.vue";
-import { decode } from "@/utils/encoder.util";
-import type { GameSettings } from "@/utils/encoder.util";
+import { decode, type GameSettings } from "@/utils/encoder.util";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 
@@ -23,6 +22,7 @@ try {
 
   gameSettings.value = decode(hash);
   console.log("Game settings:", gameSettings.value);
+  console.log("Go to the following link to play the game:");
 } catch {
   onFaultyHash();
 }

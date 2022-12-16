@@ -3,6 +3,10 @@ export type GameSettings = {
   en: string;
 };
 
+export function toEncodedUrl(settings: GameSettings): string {
+  return `${window.location.origin}/${encode(settings)}`;
+}
+
 export function encode(data: GameSettings): string {
   if (!validateGameSettings(data)) {
     throw new Error("Invalid game settings");
