@@ -8,7 +8,7 @@
       correct: props.state === 'correct',
       wider: !!$slots.viewer,
     }"
-    class="rounded text-sm font-bold cursor-pointer text-center"
+    class="rounded text-sm font-bold cursor-pointer text-center border hover:border-gray-500"
   >
     <slot name="viewer">
       {{ props.character.toUpperCase() }}
@@ -32,6 +32,9 @@ div {
   width: 2rem;
   height: 2.5rem;
   line-height: 2.5rem;
+  box-sizing: border-box;
+  transition: 0.08s;
+  user-select: none;
 
   &.wider {
     width: 3.25rem;
@@ -51,6 +54,11 @@ div {
 
   .correct {
     @apply bg-green-600;
+  }
+
+  &:active {
+    @apply bg-gray-500;
+    transform: scale(1.11);
   }
 }
 </style>
