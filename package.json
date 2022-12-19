@@ -9,7 +9,9 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format:all": "prettier src/**/*.{js,jsx,ts,tsx,vue,html,css,scss} --write"
+    "format:all": "prettier src/**/*.{js,jsx,ts,tsx,vue,html,css,scss} --write",
+    "predockerize": "yarn build",
+    "dockerize": "docker buildx build -t woife5/huxle:latest -f ./Dockerfile --platform=linux/arm64,linux/amd64,linux/arm/v7,linux/arm/v6 -o type=registry ."
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
@@ -42,6 +44,6 @@
     "typescript": "~4.7.4",
     "vite": "^3.1.8",
     "vitest": "^0.24.3",
-    "vue-tsc": "^1.0.8"
+    "vue-tsc": "^1.0.13"
   }
 }
