@@ -17,6 +17,7 @@
 </template>
 
 <script lang="ts" setup>
+
 type Props = {
   character: string;
   state: "fresh" | "not-included" | "wrong-pos" | "correct";

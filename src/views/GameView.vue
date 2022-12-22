@@ -1,7 +1,13 @@
 <template>
   <div class="flex flex-col gap-4">
-    <WordGridComponentVue :new-char="theKey" @resolve-char="keyResolved" @game-end="gameEnd" :theWord="theWord" />
-    <KeyboardComponent @key="keyPressed" />
+    <WordGridComponentVue
+      :new-char="theKey"
+      @resolve-char="keyResolved"
+      @line-info-update="handleLineInfoUpdate"
+      @game-end="gameEnd"
+      :theWord="theWord"
+    />
+    <KeyboardComponent @key="keyPressed" :lineInfo="lineInfo" />
   </div>
   Game Settings:
   <pre>{{ gameSettings ?? "invalid" }}</pre>
@@ -18,6 +24,7 @@ import { useRoute } from "vue-router";
 const hash = useRoute().params.hash;
 const gameSettings = ref<GameSettings | null>(null);
 const theWord = ref("GAMER");
+const lineInfo: any = ref({});
 
 try {
   if (Array.isArray(hash)) {
@@ -45,13 +52,16 @@ function keyResolved() {
   theKey.value = "";
 }
 
+function handleLineInfoUpdate(llineUpdate: any) {
+  lineInfo.value = llineUpdate;
+}
+
 function gameEnd(win: boolean) {
   if (win) {
     console.log("You won!");
     //TODO
     //MAKE POPUP APPEAR HERE @FELIX RADER
-  }
-  else{
+  } else {
     console.log("You lost!");
     //TODO
     //MAKE POPUP APPEAR HERE @FELIX RADER

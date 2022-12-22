@@ -1,10 +1,22 @@
 <template>
   <div class="flex flex-col gap-2">
     <div class="flex gap-2 max-w-6xl justify-between mx-auto">
-      <KeyComponent v-for="key in rows[0]" :key="key" @key-pressed="keyPressed" :character="key" state="fresh" />
+      <KeyComponent
+        v-for="key in rows[0]"
+        :key="key"
+        @key-pressed="keyPressed"
+        :character="key"
+        :state="lineInfo[key].state"
+      />
     </div>
     <div class="flex gap-2 max-w-6xl justify-around mx-auto px-4">
-      <KeyComponent v-for="key in rows[1]" :key="key" @key-pressed="keyPressed" :character="key" state="fresh" />
+      <KeyComponent
+        v-for="key in rows[1]"
+        :key="key"
+        @key-pressed="keyPressed"
+        :character="key"
+        :state="lineInfo[key].state"
+      />
     </div>
     <div class="flex gap-2 max-w-6xl justify-between mx-auto">
       <KeyComponent @key-pressed="keyPressed" character="Enter" state="fresh">
@@ -12,7 +24,13 @@
           <font-awesome-icon icon="fa-solid fa-check" />
         </template>
       </KeyComponent>
-      <KeyComponent v-for="key in rows[2]" :key="key" @key-pressed="keyPressed" :character="key" state="fresh" />
+      <KeyComponent
+        v-for="key in rows[2]"
+        :key="key"
+        @key-pressed="keyPressed"
+        :character="key"
+        :state="lineInfo[key].state"
+      />
       <KeyComponent @key-pressed="keyPressed" character="Backspace" state="fresh">
         <template #viewer>
           <font-awesome-icon icon="fa-solid fa-delete-left" />
@@ -24,6 +42,20 @@
 
 <script lang="ts" setup>
 import KeyComponent from "@/components/keyboard/KeyComponent.vue";
+import type { LineInfo } from "@/components/WordGrid/WordGridComponent.vue";
+import { watch } from "vue";
+type Props = {
+  lineInfo: LineInfo;
+};
+
+watch(
+  () => props.lineInfo,
+  (newVal) => {
+    console.log(newVal);
+    console.log(newVal["Q"].state);
+  }
+);
+const props = defineProps<Props>();
 const emit = defineEmits(["key"]);
 const rows = [
   ["Q", "W", "E", "R", "T", "Z", "U", "I", "O", "P"],

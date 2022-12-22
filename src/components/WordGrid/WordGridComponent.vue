@@ -17,18 +17,41 @@
     </div>
   </div>
 </template>
+
+<script lang="ts">
+export type LineInfo = {
+  [key: string]: { state: "fresh" | "not-included" | "wrong-pos" | "correct" };
+};
+</script>
+
 <script lang="ts" setup>
 import WordLineComponentVue from "./WordLineComponent.vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import type { Ref } from "vue";
 type Props = {
   newChar: string;
   theWord: string;
 };
 
 const props = defineProps<Props>();
-const emit = defineEmits(["resolveChar", "gameEnd"]);
+const emit = defineEmits(["resolveChar", "lineInfoUpdate", "gameEnd"]);
 const stateArray = ref(["fresh", "fresh", "fresh", "fresh", "fresh"]);
 const activeLine = ref(1);
+const rows = [
+  ["Q", "W", "E", "R", "T", "Z", "U", "I", "O", "P"],
+  ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+  ["Y", "X", "C", "V", "B", "N", "M"],
+];
+const lineInfo: Ref<LineInfo> = ref({});
+
+onMounted(() => {
+  for (const row of rows) {
+    for (const char of row) {
+      lineInfo.value[char] = { state: "fresh" };
+    }
+  }
+  emit("lineInfoUpdate", lineInfo.value);
+});
 
 function checkLine(index: number) {
   if (index === activeLine.value) {
@@ -45,19 +68,37 @@ function resolveWord(word: [{ char: string; state: string }]) {
       correctness++;
       stateArray.value[i] = "correct";
       splitWord[i] = "";
+      updateLineInfo(word[i].char, "correct");
     }
   }
   for (let i = 0; i < 5; i++) {
     if (stateArray.value[i] !== "correct") {
       if (splitWord.includes(word[i].char)) {
         stateArray.value[i] = "wrong-pos";
+        splitWord[props.theWord.indexOf(word[i].char)] = "";
       } else {
         stateArray.value[i] = "not-included";
       }
+      updateLineInfo(word[i].char, stateArray.value[i]);
     }
   }
   if (correctness === 5) {
     emit("gameEnd", true);
+    return;
+  }
+  emit("lineInfoUpdate", lineInfo.value);
+}
+
+function updateLineInfo(char: string, state: string) {
+  if (state === "correct" || state === "wrong-pos" || state === "not-included") {
+    if (lineInfo.value[char].state === "fresh") {
+      lineInfo.value[char].state = state;
+      return;
+    }
+    if (lineInfo.value[char].state === "wrong-pos" && state === "correct") {
+      lineInfo.value[char].state = state;
+      return;
+    }
   }
 }
 
