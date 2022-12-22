@@ -24,7 +24,7 @@
 
 <script lang="ts" setup>
 import KeyComponent from "@/components/keyboard/KeyComponent.vue";
-
+const emit = defineEmits(["key"]);
 const rows = [
   ["Q", "W", "E", "R", "T", "Z", "U", "I", "O", "P"],
   ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
@@ -32,6 +32,7 @@ const rows = [
 ];
 
 function keyPressed(key: string) {
-  console.log(`Key pressed: ${key}`);
+  //console.log(`Key pressed: ${key}`);
+  emit("key", key);
 }
 </script>
