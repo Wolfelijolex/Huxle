@@ -1,4 +1,4 @@
-<template >
+<template>
   <div
     :class="{
       fresh: props.state === 'fresh',
@@ -7,7 +7,7 @@
       correct: props.state === 'correct',
       wider: !!$slots.viewer,
     }"
-    class="text-sm font-bold cursor-pointer text-center border hover:border-gray-500"
+    class="text-3xl font-bold text-center border-4"
   >
     <slot name="viewer">
       {{ props.character.toUpperCase() }}
@@ -20,40 +20,25 @@ type Props = {
   state: string;
 };
 const props = defineProps<Props>();
-
 </script>
 
 <style lang="scss" scoped>
 div {
-  width: 2rem;
-  height: 2.5rem;
-  line-height: 2.5rem;
+  $base: 40px;
+  width: $base;
+  height: $base;
+  line-height: $base * 0.9;
   box-sizing: border-box;
   transition: 0.08s;
-  user-select: none;
-
-  &.wider {
-    width: 3.25rem;
+  @media screen and (min-width: 768px) {
+    width: $base * 1.5;
+    height: $base * 1.5;
+    line-height: $base * 1.5 * 0.9;
   }
-
-  .fresh {
-    @apply bg-gray-300;
-  }
-
-  .notIncluded {
-    @apply bg-gray-600;
-  }
-
-  .wrongPos {
-    @apply bg-yellow-500;
-  }
-
-  .correct {
-    @apply bg-green-600;
-  }
-
-  &:active {
-    transform: scale(1.11);
+  @media screen and (min-width: 1200px) {
+    width: $base * 2.5;
+    height: $base * 2.5;
+    line-height: $base * 2.5 * 0.9;
   }
 }
 </style>

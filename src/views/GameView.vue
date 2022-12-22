@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-4">
+  <div class="flex flex-col justify-between gap-4 h-full">
     <WordGridComponentVue
       :new-char="theKey"
       @resolve-char="keyResolved"
@@ -69,4 +69,21 @@ function gameEnd(win: boolean) {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.notIncluded,
+.correct,
+.wrongPos {
+  @apply text-white;
+}
+.notIncluded {
+  @apply bg-gray-600;
+}
+
+.wrongPos {
+  @apply bg-yellow-500;
+}
+
+.correct {
+  @apply bg-green-600;
+}
+</style>

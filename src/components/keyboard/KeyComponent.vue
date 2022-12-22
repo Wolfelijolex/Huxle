@@ -17,7 +17,6 @@
 </template>
 
 <script lang="ts" setup>
-
 type Props = {
   character: string;
   state: "fresh" | "not-included" | "wrong-pos" | "correct";
@@ -30,31 +29,47 @@ const emit = defineEmits(["keyPressed"]);
 
 <style lang="scss" scoped>
 div {
-  width: 2rem;
-  height: 2.5rem;
-  line-height: 2.5rem;
+  $width: 1.75rem;
+  $height: 2.5rem;
+  $lineHeight: 2.5rem;
+  $widers: 3.25rem;
+  width: $width * 0.8;
+  height: $height * 0.8;
+  line-height: $lineHeight * 0.8;
+  &.wider {
+    width: $widers * 0.8;
+  }
   box-sizing: border-box;
   transition: 0.08s;
   user-select: none;
 
-  &.wider {
-    width: 3.25rem;
+  @media screen and (min-width: 380px) {
+    width: $width;
+    height: $height;
+    line-height: $lineHeight;
+    &.wider {
+      width: $widers;
+    }
   }
-
+  @media screen and (min-width: 768px) {
+    width: $width * 1.75;
+    height: $height *  1.75;
+    line-height: $lineHeight *  1.75;
+    &.wider {
+      width: $widers *  1.75;
+    }
+  }
+  @media screen and (min-width: 1200px) {
+    @apply text-4xl;
+     width: $width * 2.5;
+    height: $height *  2.5;
+    line-height: $lineHeight * 2.5;
+    &.wider {
+      width: $widers *  2.5;
+    }
+  }
   .fresh {
     @apply bg-gray-300;
-  }
-
-  .notIncluded {
-    @apply bg-gray-600;
-  }
-
-  .wrongPos {
-    @apply bg-yellow-500;
-  }
-
-  .correct {
-    @apply bg-green-600;
   }
 
   &:active {

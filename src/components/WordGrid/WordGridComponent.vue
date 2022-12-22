@@ -1,6 +1,6 @@
 <template>
   <div class="flex w-full justify-center">
-    <div class="flex flex-col gap-3 w-96">
+    <div class="flex flex-col gap-3 w-2/4">
       <WordLineComponentVue
         v-for="index in 6"
         :key="index"

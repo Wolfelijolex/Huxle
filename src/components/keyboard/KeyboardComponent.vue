@@ -1,6 +1,7 @@
 <template>
-  <div class="flex flex-col gap-2" v-if="lineInfo['A']"> <!-- v-if super mega wichtig -->
-    <div class="flex gap-2 max-w-6xl justify-between mx-auto">
+  <div class="flex flex-col gap-2" v-if="lineInfo['A']">
+    <!-- v-if super mega wichtig -->
+    <div class="flex gap-2 min-w-sm justify-between mx-auto">
       <KeyComponent
         v-for="key in rows[0]"
         :key="key"
@@ -9,7 +10,7 @@
         :state="lineInfo[key].state"
       />
     </div>
-    <div class="flex gap-2 max-w-6xl justify-around mx-auto px-4">
+    <div class="flex gap-2 min-w-sm justify-around mx-auto px-4">
       <KeyComponent
         v-for="key in rows[1]"
         :key="key"
@@ -18,7 +19,7 @@
         :state="lineInfo[key].state"
       />
     </div>
-    <div class="flex gap-2 max-w-6xl justify-between mx-auto">
+    <div class="flex gap-2 min-w-sm justify-between mx-auto">
       <KeyComponent @key-pressed="keyPressed" character="Enter" state="fresh">
         <template #viewer>
           <font-awesome-icon icon="fa-solid fa-check" />
