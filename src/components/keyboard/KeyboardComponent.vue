@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-2">
+  <div class="flex flex-col gap-2" v-if="lineInfo['A']"> <!-- v-if super mega wichtig -->
     <div class="flex gap-2 max-w-6xl justify-between mx-auto">
       <KeyComponent
         v-for="key in rows[0]"
@@ -43,18 +43,10 @@
 <script lang="ts" setup>
 import KeyComponent from "@/components/keyboard/KeyComponent.vue";
 import type { LineInfo } from "@/components/WordGrid/WordGridComponent.vue";
-import { watch } from "vue";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 type Props = {
   lineInfo: LineInfo;
 };
-
-watch(
-  () => props.lineInfo,
-  (newVal) => {
-    console.log(newVal);
-    console.log(newVal["Q"].state);
-  }
-);
 const props = defineProps<Props>();
 const emit = defineEmits(["key"]);
 const rows = [

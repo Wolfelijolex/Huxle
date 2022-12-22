@@ -7,7 +7,7 @@
       @game-end="gameEnd"
       :theWord="theWord"
     />
-    <KeyboardComponent @key="keyPressed" :lineInfo="lineInfo" />
+    <KeyboardComponent @key="keyPressed" :lineInfo="lineInfoUpdate" />
   </div>
   Game Settings:
   <pre>{{ gameSettings ?? "invalid" }}</pre>
@@ -24,7 +24,7 @@ import { useRoute } from "vue-router";
 const hash = useRoute().params.hash;
 const gameSettings = ref<GameSettings | null>(null);
 const theWord = ref("GAMER");
-const lineInfo: any = ref({});
+const lineInfoUpdate: any = ref({});
 
 try {
   if (Array.isArray(hash)) {
@@ -53,7 +53,7 @@ function keyResolved() {
 }
 
 function handleLineInfoUpdate(llineUpdate: any) {
-  lineInfo.value = llineUpdate;
+  lineInfoUpdate.value = llineUpdate;
 }
 
 function gameEnd(win: boolean) {
