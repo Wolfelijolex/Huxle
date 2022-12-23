@@ -2,7 +2,7 @@
   <div class="my-4 flex flex-col">
     <label class="mb-1 font-semibold" :for="id">{{ $t(props.label) }}</label>
     <input
-      class="border border-gray-300 rounded p-2"
+      class="border border-gray-500 bg-gray-300 text-black rounded p-2"
       type="text"
       required
       :id="id"
