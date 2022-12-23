@@ -3,7 +3,7 @@ import { computed, ref } from "vue";
 
 export type CharState = "fresh" | "not-included" | "wrong-pos" | "correct";
 
-export type Try = {
+export type Key = {
   char: string;
   state: CharState;
 };
@@ -14,13 +14,13 @@ export const useGameStore = defineStore("game-store", () => {
     word.value = newWord;
   }
 
-  const tries = ref<Try[][]>([]);
-  function addTry(newTry: Try[]) {
+  const tries = ref<Key[][]>([]);
+  function addTry(newTry: Key[]) {
     tries.value.push(newTry);
   }
 
   const allTries = computed(() => {
-    return tries.value.reduce((acc, curr) => [...acc, ...curr], [] as Try[]);
+    return tries.value.reduce((acc, curr) => [...acc, ...curr], [] as Key[]);
   });
 
   return { word, setWord, tries, addTry, allTries };

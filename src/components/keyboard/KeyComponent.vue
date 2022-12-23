@@ -70,9 +70,6 @@ div {
       width: $widers * 2.5;
     }
   }
-  .fresh {
-    @apply bg-gray-300;
-  }
 
   &:active {
     @apply bg-gray-500;

@@ -71,7 +71,7 @@ function getKeyState(key: string): CharState {
     }
 
     if (t.state === "not-included") {
-      state = "not-included";
+      state = state === "wrong-pos" ? state : "not-included";
     }
   }
 

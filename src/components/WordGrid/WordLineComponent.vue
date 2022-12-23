@@ -6,11 +6,11 @@
 
 <script lang="ts" setup>
 import WordCellComponentVue from "./WordCellComponent.vue";
-import type { Try } from "@/stores/game-store";
+import type { Key } from "@/stores/game-store";
 import { computed } from "vue";
 
 type Props = {
-  tries: Try[];
+  tries: Key[];
 };
 
 const props = defineProps<Props>();

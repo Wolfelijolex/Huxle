@@ -14,11 +14,11 @@ export type LineInfo = {
 
 <script lang="ts" setup>
 import WordLineComponentVue from "./WordLineComponent.vue";
-import type { Try } from "@/stores/game-store";
+import type { Key } from "@/stores/game-store";
 
 type Props = {
-  pastTries: Try[][];
-  currentLine: Try[];
+  pastTries: Key[][];
+  currentLine: Key[];
 };
 
 const props = defineProps<Props>();

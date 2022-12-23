@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import type { Try } from "./game-store";
+import type { Key } from "./game-store";
 
 export const useCurrentLineStore = defineStore("current-line-store", () => {
-  const tries = ref<Try[]>([]);
-  function addTry(newTry: Try) {
+  const tries = ref<Key[]>([]);
+  function addTry(newTry: Key) {
     tries.value.push(newTry);
   }
   function removeLastTry() {

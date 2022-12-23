@@ -17,7 +17,7 @@ import { isSupportedLocale } from "@/i18n";
 import { useCurrentLineStore } from "@/stores/current-line-store";
 import { useGameStore } from "@/stores/game-store";
 import { decode } from "@/utils/encoder.util";
-import { getCharState, isCorrectWord } from "@/utils/game.util";
+import { getCharStatesForLine, isCorrectWord } from "@/utils/game.util";
 import { onMounted, onUnmounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
@@ -50,7 +50,6 @@ try {
 
   const gameSettings = decode(hash);
   console.log("Game settings:", gameSettings);
-  console.log("Go to the following link to play the game:");
 
   if (isSupportedLocale(locale.value)) {
     gameStore.setWord(gameSettings[locale.value].toUpperCase());
@@ -74,7 +73,7 @@ function keyPressed(key: string) {
   }
 
   if (key === "Enter" && lineStore.tries.length === 5) {
-    const line = lineStore.tries.map(getCharState);
+    const line = getCharStatesForLine(lineStore.tries);
     gameStore.addTry(line);
     lineStore.reset();
 
@@ -117,8 +116,9 @@ function gameEnd(win: boolean) {
 .wrongPos {
   @apply text-white;
 }
+
 .notIncluded {
-  @apply bg-gray-600;
+  @apply bg-gray-400 text-gray-300;
 }
 
 .wrongPos {
