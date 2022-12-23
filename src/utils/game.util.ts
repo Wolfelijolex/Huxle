@@ -11,3 +11,12 @@ export function getCharState(key: Try, index: number): Try {
     return { ...key, state: "not-included" };
   }
 }
+
+export function isCorrectWord(keys: Try[], word: string): boolean {
+  for (let i = 0; i < keys.length; i++) {
+    if (keys[i].char !== word[i]) {
+      return false;
+    }
+  }
+  return true;
+}

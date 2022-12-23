@@ -15,9 +15,9 @@ import KeyboardComponent from "@/components/keyboard/KeyboardComponent.vue";
 import WordGridComponentVue from "@/components/WordGrid/WordGridComponent.vue";
 import { isSupportedLocale } from "@/i18n";
 import { useCurrentLineStore } from "@/stores/current-line-store";
-import { useGameStore, type Try } from "@/stores/game-store";
+import { useGameStore } from "@/stores/game-store";
 import { decode } from "@/utils/encoder.util";
-import { getCharState } from "@/utils/game.util";
+import { getCharState, isCorrectWord } from "@/utils/game.util";
 import { onMounted, onUnmounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
@@ -69,7 +69,6 @@ function onFaultyHash() {
 
 function keyPressed(key: string) {
   if (key === "Backspace") {
-    console.log("Backspace pressed!");
     lineStore.removeLastTry();
     return;
   }
@@ -78,7 +77,13 @@ function keyPressed(key: string) {
     const line = lineStore.tries.map(getCharState);
     gameStore.addTry(line);
     lineStore.reset();
-    // TODO handle win condition
+
+    if (isCorrectWord(line, gameStore.word ?? "")) {
+      gameEnd(true);
+    } else if (gameStore.tries.length >= 6) {
+      gameEnd(false);
+    }
+
     return;
   }
 
