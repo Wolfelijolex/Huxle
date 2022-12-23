@@ -1,40 +1,63 @@
 <template>
   <div class="flex flex-col justify-between gap-4 h-full">
-    <WordGridComponentVue
-      :new-char="theKey"
-      @resolve-char="keyResolved"
-      @line-info-update="handleLineInfoUpdate"
-      @game-end="gameEnd"
-      :theWord="theWord"
-    />
-    <KeyboardComponent @key="keyPressed" :lineInfo="lineInfoUpdate" />
+    <WordGridComponentVue :past-tries="gameStore.tries" :current-line="lineStore.tries" />
+    <KeyboardComponent @key="keyPressed" />
   </div>
-  Game Settings:
-  <pre>{{ gameSettings ?? "invalid" }}</pre>
-  <pre>Defaulting to "GAMER"</pre>
+  <div>
+    Game Settings:
+    <pre>{{ gameStore.word ?? "invalid" }}</pre>
+    <pre>Defaulting to "GAMER"</pre>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import KeyboardComponent from "@/components/keyboard/KeyboardComponent.vue";
 import WordGridComponentVue from "@/components/WordGrid/WordGridComponent.vue";
-import { decode, type GameSettings } from "@/utils/encoder.util";
-import { ref } from "vue";
+import { isSupportedLocale } from "@/i18n";
+import { useCurrentLineStore } from "@/stores/current-line-store";
+import { useGameStore, type Try } from "@/stores/game-store";
+import { decode } from "@/utils/encoder.util";
+import { getCharState } from "@/utils/game.util";
+import { onMounted, onUnmounted } from "vue";
+import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 
+const lineStore = useCurrentLineStore();
+const gameStore = useGameStore();
 const hash = useRoute().params.hash;
-const gameSettings = ref<GameSettings | null>(null);
-const theWord = ref("GAMER");
-const lineInfoUpdate: any = ref({});
+const { locale } = useI18n();
+
+const keyboardHandler = (event: KeyboardEvent) => {
+  if (event.key.length === 1) {
+    keyPressed(event.key.toUpperCase());
+  } else {
+    keyPressed(event.key);
+  }
+};
+
+onMounted(() => {
+  window.addEventListener("keyup", keyboardHandler);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("keyup", keyboardHandler);
+});
 
 try {
   if (Array.isArray(hash)) {
-    onFaultyHash();
     throw new Error("Hash is an array!");
   }
 
-  gameSettings.value = decode(hash);
-  console.log("Game settings:", gameSettings.value);
+  const gameSettings = decode(hash);
+  console.log("Game settings:", gameSettings);
   console.log("Go to the following link to play the game:");
+
+  if (isSupportedLocale(locale.value)) {
+    gameStore.setWord(gameSettings[locale.value].toUpperCase());
+  } else {
+    // TODO @FELIX RADER: Maybe show popup that language is not supported?
+    gameStore.setWord(gameSettings.en.toUpperCase());
+  }
 } catch {
   onFaultyHash();
 }
@@ -44,16 +67,30 @@ function onFaultyHash() {
   console.info("A popup should appear now!");
 }
 
-const theKey = ref("");
 function keyPressed(key: string) {
-  theKey.value = key;
-}
-function keyResolved() {
-  theKey.value = "";
-}
+  if (key === "Backspace") {
+    console.log("Backspace pressed!");
+    lineStore.removeLastTry();
+    return;
+  }
 
-function handleLineInfoUpdate(llineUpdate: any) {
-  lineInfoUpdate.value = llineUpdate;
+  if (key === "Enter" && lineStore.tries.length === 5) {
+    const line = lineStore.tries.map(getCharState);
+    gameStore.addTry(line);
+    lineStore.reset();
+    // TODO handle win condition
+    return;
+  }
+
+  if (lineStore.tries.length >= 5) {
+    // dont react on keypresses if line is full
+    return;
+  }
+
+  if (key.length === 1) {
+    lineStore.addTry({ char: key, state: "fresh" });
+    return;
+  }
 }
 
 function gameEnd(win: boolean) {

@@ -14,3 +14,7 @@ export const i18n = createI18n({
   locale: "en",
   legacy: false,
 });
+
+export const isSupportedLocale = (locale: string): locale is typeof availableLocales[number] => {
+  return availableLocales.includes(locale as any);
+};

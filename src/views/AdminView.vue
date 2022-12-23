@@ -7,6 +7,11 @@
       {{ $t("admin.createLink") }}
     </button>
   </form>
+
+  <!-- Temporary -->
+  <a :href="url" v-if="url" class="mt-4 hover:text-blue-500">
+    {{ url }}
+  </a>
 </template>
 
 <script lang="ts" setup>
@@ -17,6 +22,8 @@ import { ref } from "vue";
 const englishWord = ref("");
 const germanWord = ref("");
 
+const url = ref("");
+
 function createLink() {
   const data: GameSettings = {
     en: englishWord.value,
@@ -24,8 +31,8 @@ function createLink() {
   };
 
   try {
-    const url = toEncodedUrl(data);
-    console.log("Visit the following page to play:", url);
+    url.value = toEncodedUrl(data);
+    console.log("Visit the following page to play:", url.value);
   } catch (error) {
     console.error(error);
   }

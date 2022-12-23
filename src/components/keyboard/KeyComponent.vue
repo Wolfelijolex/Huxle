@@ -1,6 +1,6 @@
 <template>
   <div
-    @click="emit('keyPressed', props.character)"
+    @click="emit('keyPressed', props.char)"
     :class="{
       fresh: props.state === 'fresh',
       notIncluded: props.state === 'not-included',
@@ -11,15 +11,17 @@
     class="rounded text-sm font-bold cursor-pointer text-center border hover:border-gray-500"
   >
     <slot name="viewer">
-      {{ props.character.toUpperCase() }}
+      {{ props.char.toUpperCase() }}
     </slot>
   </div>
 </template>
 
 <script lang="ts" setup>
+import type { CharState } from "@/stores/game-store";
+
 type Props = {
-  character: string;
-  state: "fresh" | "not-included" | "wrong-pos" | "correct";
+  char: string;
+  state: CharState;
 };
 
 const props = defineProps<Props>();
@@ -53,19 +55,19 @@ div {
   }
   @media screen and (min-width: 768px) {
     width: $width * 1.75;
-    height: $height *  1.75;
-    line-height: $lineHeight *  1.75;
+    height: $height * 1.75;
+    line-height: $lineHeight * 1.75;
     &.wider {
-      width: $widers *  1.75;
+      width: $widers * 1.75;
     }
   }
   @media screen and (min-width: 1200px) {
     @apply text-4xl;
-     width: $width * 2.5;
-    height: $height *  2.5;
+    width: $width * 2.5;
+    height: $height * 2.5;
     line-height: $lineHeight * 2.5;
     &.wider {
-      width: $widers *  2.5;
+      width: $widers * 2.5;
     }
   }
   .fresh {
