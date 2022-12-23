@@ -41,9 +41,7 @@ function getOtherChars(key: Key, word: string, line: Key[], remainingOccurances:
       return { ...key, state: "wrong-pos" };
     }
 
-    if (!gameStore.word!.includes(key.char)) {
-      return { ...key, state: "not-included" };
-    }
+    return { ...key, state: "not-included" };
   }
 
   return { ...key };

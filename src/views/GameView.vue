@@ -59,6 +59,7 @@ try {
   }
 } catch {
   onFaultyHash();
+  gameStore.setWord("GAMER"); //TODO remove
 }
 
 function onFaultyHash() {
