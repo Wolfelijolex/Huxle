@@ -17,7 +17,7 @@ import { isSupportedLocale } from "@/i18n";
 import { useCurrentLineStore } from "@/stores/current-line-store";
 import { useGameStore } from "@/stores/game-store";
 import { decode } from "@/utils/encoder.util";
-import { getCharStatesForLine, isCorrectWord } from "@/utils/game.util";
+import { getCharStatesForLine, isCorrectWord, isValidKey } from "@/utils/game.util";
 import { onMounted, onUnmounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
@@ -29,6 +29,10 @@ const { locale } = useI18n();
 
 const keyboardHandler = (event: KeyboardEvent) => {
   if (event.key.length === 1) {
+    if (!isValidKey(event.key.toUpperCase())) {
+      return;
+    }
+
     keyPressed(event.key.toUpperCase());
   } else {
     keyPressed(event.key);

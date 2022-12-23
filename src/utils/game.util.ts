@@ -1,5 +1,15 @@
 import { useGameStore, type Key } from "@/stores/game-store";
 
+export const keyRows = [
+  ["Q", "W", "E", "R", "T", "Z", "U", "I", "O", "P"],
+  ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+  ["Y", "X", "C", "V", "B", "N", "M"],
+];
+
+export function isValidKey(key: string): boolean {
+  return keyRows.some((row) => row.includes(key));
+}
+
 export function getCharStatesForLine(line: Key[]): Key[] {
   const gameStore = useGameStore();
 
