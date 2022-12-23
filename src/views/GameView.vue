@@ -18,12 +18,13 @@ import { useCurrentLineStore } from "@/stores/current-line-store";
 import { useGameStore } from "@/stores/game-store";
 import { decode } from "@/utils/encoder.util";
 import { getCharStatesForLine, isCorrectWord, isValidKey } from "@/utils/game.util";
-import { onMounted, onUnmounted } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 
 const lineStore = useCurrentLineStore();
 const gameStore = useGameStore();
+const gameFinished = ref(false);
 const hash = useRoute().params.hash;
 const { locale } = useI18n();
 
@@ -72,6 +73,10 @@ function onFaultyHash() {
 }
 
 function keyPressed(key: string) {
+  if (gameFinished.value) {
+    return;
+  }
+
   if (key === "Backspace") {
     lineStore.removeLastTry();
     return;
@@ -112,6 +117,7 @@ function gameEnd(win: boolean) {
     //TODO
     //MAKE POPUP APPEAR HERE @FELIX RADER
   }
+  gameFinished.value = true;
 }
 </script>
 
