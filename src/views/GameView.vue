@@ -2,6 +2,7 @@
   <div class="flex flex-col justify-between gap-4 h-full">
     <WordGridComponentVue :past-tries="gameStore.tries" :current-line="lineStore.tries" />
     <KeyboardComponent @key="keyPressed" />
+    <PopUpView v-if="gameFinished" :won="gameWon" />
   </div>
   <div>
     Game Settings:
@@ -22,11 +23,15 @@ import { onMounted, onUnmounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 
+import PopUpView from "./PopUpView.vue";
+
 const lineStore = useCurrentLineStore();
 const gameStore = useGameStore();
 const gameFinished = ref(false);
 const hash = useRoute().params.hash;
 const { locale } = useI18n();
+var gameWon = false;
+
 
 const keyboardHandler = (event: KeyboardEvent) => {
   if (event.key.length === 1) {
@@ -110,12 +115,10 @@ function keyPressed(key: string) {
 function gameEnd(win: boolean) {
   if (win) {
     console.log("You won!");
-    //TODO
-    //MAKE POPUP APPEAR HERE @FELIX RADER
+    gameWon = true;
   } else {
     console.log("You lost!");
-    //TODO
-    //MAKE POPUP APPEAR HERE @FELIX RADER
+    gameWon = false;
   }
   gameFinished.value = true;
 }
