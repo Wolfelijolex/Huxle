@@ -3,27 +3,24 @@
     <div class="popUpWindow">
       <div v-show="showStats">
         <div class="stats">
-          <div class="statsText">
-            <div class="statsText">Stats:</div>
-            <div class="statsText">Time: 25s</div>
-            <div class="statsText">Words: 4</div>
-            <div class="statsText">Accuracy: 3</div>
-          </div>
+          <statsPopUp></statsPopUp>
         </div>
       </div>
-
       <div v-show="showStats === false" class="winStateEmoji">
         <div class="winStateText">{{ getWinText() }}
           <div class="Emoji">{{ getWinEmoji() }}</div>
         </div>
       </div>
-
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
+import statsPopUp from "./statsPopUp.vue";
+import { useGameStore } from "@/stores/game-store";
+
+const gameState = useGameStore();
 
 const props = defineProps<{
   won: boolean;
@@ -42,7 +39,23 @@ function getWinText() {
 
 function getWinEmoji() {
   if (won.value) {
-    return "🤩";
+    var numberOfTries = gameState.allTries.length / 5;
+    switch (true) {
+    case numberOfTries === 6:
+      return "🤨";
+    case numberOfTries === 5:
+      return "🫠";
+    case numberOfTries === 4:
+      return "🙂";
+    case numberOfTries === 3:
+      return "😎";
+    case numberOfTries === 2:
+      return "🥰";
+    case numberOfTries === 1:
+      return "🤩";
+    default:
+      return "😡";
+    }
   } else {
     return "🤮";
   }
@@ -51,7 +64,7 @@ function getWinEmoji() {
 // after 3 seconds, close the popup
 setTimeout(() => {
   showStats = true;
-  if(won.value === true){
+  if (won.value === true) {
     won.value = false;
   } else {
     won.value = true;
@@ -59,7 +72,7 @@ setTimeout(() => {
   console.log("showing stats");
   console.log(showStats);
 
-}, 3000);
+}, 2000);
 </script>
 
 <style lang="scss">
@@ -92,9 +105,8 @@ setTimeout(() => {
 .stats {
   @apply m-16;
 }
-.statsText {
-  @apply text-black text-center font-bold text-2xl m-3;
-}
+
+
 
 @keyframes shakeHead {
   0% {
