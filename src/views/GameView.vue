@@ -2,7 +2,7 @@
   <div class="flex flex-col justify-between gap-4 h-full">
     <WordGridComponentVue :past-tries="gameStore.tries" :current-line="lineStore.tries" />
     <KeyboardComponent @key="keyPressed" />
-    <PopUpView v-if="gameFinished" :won="gameWon" />
+    <winStatePopUp v-if="gameFinished" :won="gameWon" />
   </div>
   <div>
     Game Settings:
@@ -23,7 +23,7 @@ import { onMounted, onUnmounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 
-import PopUpView from "./PopUpView.vue";
+import winStatePopUp from "./winStatePopup.vue";
 
 const lineStore = useCurrentLineStore();
 const gameStore = useGameStore();
