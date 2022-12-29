@@ -46,7 +46,15 @@ const gameState = useGameStore();
 
 <style>
 .popUpBackground {
-  @apply absolute z-10 top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm bg-scroll;
+  @apply absolute z-10 top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm;
+}
+
+.popUpWindow {
+  @apply absolute flex top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 landscape:w-1/4 portrait:w-3/4 h-auto bg-white rounded-lg drop-shadow-lg;
+}
+
+.winStateText {
+  @apply flex flex-col m-10 text-black font-bold justify-center items-center w-full h-full text-4xl text-center;
 }
 
 .statsHeadline {

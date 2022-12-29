@@ -25,9 +25,6 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from "vue";
-import statsPopUp from "./statsPopUp.vue";
-import GameView from "@/views/GameView.vue";
-
 
 const props = defineProps<{
   errorType: string;
