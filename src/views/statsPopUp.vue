@@ -3,11 +3,9 @@
     <div class="popUpWindow">
       <button class="closeButton" @click="closeStats()">x</button>
       <div>
-        <div class="statsHeadline">Stats:<br>
-        </div>
+        <div class="statsHeadline">Stats:<br></div>
         <div class="statsText">Time: {{ }} </div> //todo get time from store
-        <div class="statsText">Guesses: {{ gameState.allTries.length / 5 }}
-        </div>
+        <div class="statsText">Guesses: {{ gameState.allTries.length / 5 }}</div>
       </div>
       <button class="shareButton">share</button>
     </div>
@@ -24,8 +22,10 @@ import { useGameStore } from "@/stores/game-store";
 var statsOpen = true;
 
 function closeStats() {
-  statsOpen = false;
-  console.log("closeStats");
+  // write a function to close the stats window
+  
+
+
 }
 
 const gameState = useGameStore();

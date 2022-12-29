@@ -33,7 +33,30 @@ function getWinText() {
   if (won.value) {
     return "CONGRATS! You won!";
   } else {
-    return "CRINGE! You lost.";
+    var randomNumber = Math.floor(Math.random() * 10);
+    switch (randomNumber) {
+    case 0:
+      return "You are stupid.";
+    case 1:
+      return "You lost.";
+    case 2:
+      return "You are a loser.";
+    case 3:
+      return "You are a failure.";
+    case 4:
+      return "You are a disgrace.";
+    case 5:
+      return "You are really bad at this.";
+    case 6:
+      return "This u? 💩"
+    case 7:
+      return "🤮🤮🤮🤮🤮🤮"
+    case 8:
+      return "why are you even trying"
+    case 9:
+      return "this was a waste of my time"
+    default: "CRINGE! You lost."
+    }
   }
 }
 
