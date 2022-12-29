@@ -51,7 +51,7 @@ function getWinText() {
     case 6:
       return "This u? 💩"
     case 7:
-      return "🤮🤮🤮🤮🤮🤮"
+      return "🤮L🤮O🤮S🤮E🤮R🤮"
     case 8:
       return "Why are you even trying?"
     case 9:
@@ -99,25 +99,25 @@ setTimeout(() => {
 }
 
 .popUpWindow {
-  @apply absolute flex top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-auto h-auto bg-white rounded-lg drop-shadow-lg;
+  @apply absolute flex top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/4 h-auto bg-white rounded-lg drop-shadow-lg;
 }
 
 .winStateText {
-  @apply text-black text-center font-bold text-4xl m-16;
+  @apply flex flex-col m-10 text-black justify-center items-center w-full h-full text-4xl text-center;
 }
 
 .Emoji {
-  @apply text-8xl m-4 duration-300 select-none;
+  @apply text-7xl m-4 duration-300 select-none;
   animation: shakeHead 2s linear infinite;
 
 }
 
 .Emoji:hover {
-  @apply text-9xl;
+  @apply text-8xl;
 }
 
 .Emoji:active {
-  @apply text-7xl;
+  @apply text-6xl;
 }
 
 .stats {

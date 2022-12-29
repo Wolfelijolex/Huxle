@@ -23,7 +23,7 @@ import { onMounted, onUnmounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 
-import winStatePopUp from "./winStatePopup.vue";
+import winStatePopUp from "../components/PopUps/winStatePopup.vue";
 
 const lineStore = useCurrentLineStore();
 const gameStore = useGameStore();
