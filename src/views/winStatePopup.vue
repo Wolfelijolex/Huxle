@@ -1,12 +1,10 @@
 <template>
-  <div class="popUpBackground">
-    <div class="popUpWindow">
-      <div v-show="showStats">
-        <div class="stats">
-          <statsPopUp></statsPopUp>
-        </div>
-      </div>
-      <div v-show="showStats === false" class="winStateEmoji">
+  <div v-if="showStats.value">
+    <statsPopUp />
+  </div>
+  <div v-else>
+    <div class="popUpBackground">
+      <div class="popUpWindow">
         <div class="winStateText">{{ getWinText() }}
           <div class="Emoji">{{ getWinEmoji() }}</div>
         </div>
@@ -16,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { ref, reactive } from "vue";
 import statsPopUp from "./statsPopUp.vue";
 import { useGameStore } from "@/stores/game-store";
 
@@ -27,7 +25,10 @@ const props = defineProps<{
 }>();
 
 const won = ref(props.won);
-var showStats = false;
+
+const showStats = reactive({
+  value: false,
+});
 
 function getWinText() {
   if (won.value) {
@@ -52,7 +53,7 @@ function getWinText() {
     case 7:
       return "🤮🤮🤮🤮🤮🤮"
     case 8:
-      return "why are you even trying"
+      return "Why are you even trying?"
     case 9:
       return "this was a waste of my time"
     default: "CRINGE! You lost."
@@ -86,15 +87,9 @@ function getWinEmoji() {
 
 // after 3 seconds, close the popup
 setTimeout(() => {
-  showStats = true;
-  if (won.value === true) {
-    won.value = false;
-  } else {
-    won.value = true;
-  }
   console.log("showing stats");
   console.log(showStats);
-
+  showStats.value = true;
 }, 2000);
 </script>
 

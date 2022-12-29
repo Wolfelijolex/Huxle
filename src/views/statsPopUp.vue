@@ -1,15 +1,17 @@
 <template>
   <div v-show="statsOpen.value">
-    <div class="popUpWindow">
-      <button class="closeButton" @click="closeStats()">x</button>
-      <div>
-        <div class="statsHeadline">Stats:<br></div>
-        <div class="statsContainer">
-          <div class="statsText">Time: {{ }} </div> //todo get time from store
-          <div class="statsText">Guesses: {{ gameState.allTries.length / 5 }}</div>
+    <div class="popUpBackground">
+      <div class="popUpWindow">
+        <button class="closeButton" @click="closeStats()">x</button>
+        <div>
+          <div class="statsHeadline">Stats:<br></div>
+          <div class="statsContainer">
+            <div class="statsText">Time: {{ }} </div> //todo get time from store
+            <div class="statsText">Guesses: {{ gameState.allTries.length / 5 }}</div>
+          </div>
         </div>
+        <button class="shareButton" @click="copyToClipboard()">{{ clipBoardButtonText.value }}</button>
       </div>
-      <button class="shareButton" @click="copyToClipboard()">{{ clipBoardButtonText.value }}</button>
     </div>
   </div>
 </template>
@@ -18,20 +20,17 @@
 import { useGameStore } from "@/stores/game-store";
 import { reactive } from "vue";
 
-var buttonText = "share";
-var clipBoardButtonPressed = false;
 
 function closeStats() {
   statsOpen.value = false;
-
 }
 
 const clipBoardButtonText = reactive({
-  value: "share"
+  value: "share",
 });
 
 const statsOpen = reactive({
-  value: true
+  value: true,
 });
 
 function copyToClipboard() {
@@ -46,8 +45,9 @@ const gameState = useGameStore();
 
 
 <style>
-
-
+.popUpBackground {
+  @apply absolute z-10 top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm bg-scroll;
+}
 
 .popUpWindow {
   @apply top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg drop-shadow-lg;
@@ -80,9 +80,11 @@ const gameState = useGameStore();
 .shareButton {
   @apply absolute duration-300 text-center duration-200 bottom-0 right-0 w-full h-10 text-2xl bg-gray-400 text-white font-bold cursor-pointer;
 }
+
 .shareButton:hover {
   @apply bg-blue-500;
 }
+
 .shareButton:active {
   @apply absolute bg-blue-600 w-full h-9;
 }
