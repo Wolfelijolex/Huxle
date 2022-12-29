@@ -1,32 +1,44 @@
 <template>
-  <div v-show="statsOpen">
+  <div v-show="statsOpen.value">
     <div class="popUpWindow">
       <button class="closeButton" @click="closeStats()">x</button>
       <div>
         <div class="statsHeadline">Stats:<br></div>
-        <div class="statsText">Time: {{ }} </div> //todo get time from store
-        <div class="statsText">Guesses: {{ gameState.allTries.length / 5 }}</div>
+        <div class="statsContainer">
+          <div class="statsText">Time: {{ }} </div> //todo get time from store
+          <div class="statsText">Guesses: {{ gameState.allTries.length / 5 }}</div>
+        </div>
       </div>
-      <button class="shareButton">share</button>
+      <button class="shareButton" @click="copyToClipboard()">{{ clipBoardButtonText.value }}</button>
     </div>
   </div>
-
-
-
 </template>
-
 
 <script lang="ts" setup>
 import { useGameStore } from "@/stores/game-store";
+import { reactive } from "vue";
 
-var statsOpen = true;
+var buttonText = "share";
+var clipBoardButtonPressed = false;
 
 function closeStats() {
-  // write a function to close the stats window
-  
-
+  statsOpen.value = false;
 
 }
+
+const clipBoardButtonText = reactive({
+  value: "share"
+});
+
+const statsOpen = reactive({
+  value: true
+});
+
+function copyToClipboard() {
+  clipBoardButtonText.value = "copied to clipboard!";
+  navigator.clipboard.writeText("cool");
+}
+
 
 const gameState = useGameStore();
 
@@ -34,8 +46,15 @@ const gameState = useGameStore();
 
 
 <style>
-.popUpBackground {
-  @apply absolute z-10 top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm bg-scroll;
+
+
+
+.popUpWindow {
+  @apply top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg drop-shadow-lg;
+}
+
+.statsHeadline {
+  @apply text-black font-bold text-4xl m-8;
 }
 
 .closeButton {
@@ -50,19 +69,21 @@ const gameState = useGameStore();
   @apply absolute bg-red-600 w-9 h-9;
 }
 
-.popUpWindow {
-  @apply absolute flex top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-auto h-auto bg-white rounded-lg drop-shadow-lg;
-}
-
-.statsHeadline {
-  @apply text-black font-bold text-4xl m-3 mb-8;
+.statsContainer {
+  @apply mb-32 m-8 w-96;
 }
 
 .statsText {
-  @apply text-black font-bold text-2xl m-24;
+  @apply text-black font-bold text-2xl;
 }
 
 .shareButton {
-  @apply absolute text-center duration-200 bottom-0 m-4 right-0 w-full h-10 text-2xl bg-gray-400 text-white font-bold cursor-pointer;
+  @apply absolute duration-300 text-center duration-200 bottom-0 right-0 w-full h-10 text-2xl bg-gray-400 text-white font-bold cursor-pointer;
+}
+.shareButton:hover {
+  @apply bg-blue-500;
+}
+.shareButton:active {
+  @apply absolute bg-blue-600 w-full h-9;
 }
 </style>
