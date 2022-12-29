@@ -90,7 +90,7 @@ setTimeout(() => {
   console.log("showing stats");
   console.log(showStats);
   showStats.value = true;
-}, 2000);
+}, 200000);
 </script>
 
 <style lang="scss">
@@ -99,11 +99,11 @@ setTimeout(() => {
 }
 
 .popUpWindow {
-  @apply absolute flex top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3/4 h-auto bg-white rounded-lg drop-shadow-lg;
+  @apply absolute flex top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 landscape:w-1/4 portrait:w-3/4 h-auto bg-white rounded-lg drop-shadow-lg;
 }
 
 .winStateText {
-  @apply flex flex-col m-10 text-black justify-center items-center w-full h-full text-4xl text-center;
+  @apply flex flex-col m-10 text-black font-bold justify-center items-center w-full h-full text-4xl text-center;
 }
 
 .Emoji {

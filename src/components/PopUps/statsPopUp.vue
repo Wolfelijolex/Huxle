@@ -49,10 +49,6 @@ const gameState = useGameStore();
   @apply absolute z-10 top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm bg-scroll;
 }
 
-.popUpWindow {
-  @apply top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-lg drop-shadow-lg;
-}
-
 .statsHeadline {
   @apply text-black font-bold text-4xl m-8;
 }
