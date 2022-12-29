@@ -1,11 +1,23 @@
 <template>
   <div v-if="popUpOpen.value">
     <div class="popUpBackground">
-      <div class="popUpWindow">
+      <div v-if="noButtons.value" class="popUpWindow">
         <div v-if="closeButton.value" class="closeButton" @click="closePopUp()">x</div>
-        <div class="winStateText">{{ errorText.value }}
-          <div class="Emoji">😭</div>
+        <div class="errorText">{{ errorText.value }}
+          <div v-if="showEmoji.value" class="Emoji">😭</div>
         </div>
+      </div>
+      <div v-else class="popUpWindow">
+        <div v-if="closeButton.value" class="closeButton" @click="closePopUp()">x</div>
+        <div class="TextWithButtonsContainer">
+        <div class="errorText">{{ errorText.value }} {{ languageName }}
+          <div v-if="showEmoji.value" class="Emoji">😭</div>
+        </div>
+        <div class="buttonContainer">
+          <button class="button" @click="changeLanguage()">switch to {{ languageName }}</button>
+          <button class="button" @click="closePopUp()">cancel</button>
+        </div>
+      </div>
       </div>
     </div>
   </div>
@@ -18,15 +30,25 @@ import GameView from "@/views/GameView.vue";
 
 
 const props = defineProps<{
-  errorType : string;
+  errorType: string;
 }>();
 
+const languageName = "german";
 
 var errorType = ref(props.errorType);
+const noButtons = reactive({
+  value: true,
+});
 
 function closePopUp() {
   popUpOpen.value = false;
-  GameView.value.errorPopUpOpen = false;
+}
+function changeLanguage() {
+  console.log("change language");
+  // todo change language
+  // reload page
+  closePopUp();
+
 }
 
 const popUpOpen = reactive({
@@ -44,6 +66,10 @@ const closeButton = reactive({
   value: false,
 });
 
+const showEmoji = reactive({
+  value: true,
+});
+
 if (errorType.value == "UnknownLanguage") {
   errorText.value = "Sorry, but game is not aviailable in your language yet.";
   closeButton.value = true;
@@ -51,6 +77,8 @@ if (errorType.value == "UnknownLanguage") {
   errorText.value = "Sorry! The given link is invalid"
 } else if (errorType.value == "switchLanguages") {
   errorText.value = "Do you really want to discard your progress and switch to "
+  noButtons.value = false;
+  showEmoji.value = false;
 } else {
   errorText.value = "Sorry, but an error occured. Please try again later. If the error persists, please contact us."
 }
@@ -60,6 +88,24 @@ if (errorType.value == "UnknownLanguage") {
 
 <style>
 .errorText {
-  @apply flex flex-col m-10 text-black font-bold justify-center items-center w-full h-full text-3xl text-center;
+  /* center text  */
+  @apply text-center text-black font-bold text-xl m-8;
+}
+.buttonContainer {
+  @apply flex flex-row justify-center;
+}
+/*  button center bottom rounded corners */
+.button {
+  @apply text-center duration-200 p-2 mb-8 ml-2 mr-2 w-auto h-auto  text-xl bg-gray-400 text-white font-bold cursor-pointer rounded;
+}
+.button:hover {
+  @apply bg-gray-500;
+}
+.button:active {
+  @apply bg-blue-600;
+}
+
+.textWithButtonsContainer {
+  @apply flex flex-col justify-center;
 }
 </style>

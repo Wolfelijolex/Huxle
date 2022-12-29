@@ -39,7 +39,7 @@ function getWinText() {
     case 0:
       return "You are stupid.";
     case 1:
-      return "You lost.";
+      return "You lost. congrats.";
     case 2:
       return "You are a loser.";
     case 3:
