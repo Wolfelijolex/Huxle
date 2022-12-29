@@ -3,6 +3,7 @@
     <WordGridComponentVue :past-tries="gameStore.tries" :current-line="lineStore.tries" />
     <KeyboardComponent @key="keyPressed" />
     <winStatePopUp v-if="gameFinished" :won="gameWon" />
+    <ErrorPopUp v-if="errorPopUp.value" :errorType="errorType" />
   </div>
   <div>
     Game Settings:
@@ -13,15 +14,17 @@
 
 <script lang="ts" setup>
 import KeyboardComponent from "@/components/keyboard/KeyboardComponent.vue";
+import ErrorPopUp from "@/components/PopUps/errorPopUp.vue";
 import WordGridComponentVue from "@/components/WordGrid/WordGridComponent.vue";
 import { isSupportedLocale } from "@/i18n";
 import { useCurrentLineStore } from "@/stores/current-line-store";
 import { useGameStore } from "@/stores/game-store";
 import { decode } from "@/utils/encoder.util";
 import { getCharStatesForLine, isCorrectWord, isValidKey } from "@/utils/game.util";
-import { onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref, reactive } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
+
 
 import winStatePopUp from "../components/PopUps/winStatePopup.vue";
 
@@ -31,6 +34,11 @@ const gameFinished = ref(false);
 const hash = useRoute().params.hash;
 const { locale } = useI18n();
 var gameWon = false;
+var errorType = "language";
+
+const errorPopUp = reactive({
+  value: false,
+});
 
 
 const keyboardHandler = (event: KeyboardEvent) => {
@@ -66,6 +74,8 @@ try {
   } else {
     // TODO @FELIX RADER: Maybe show popup that language is not supported?
     gameStore.setWord(gameSettings.en.toUpperCase());
+    errorType = "UnknownLanguage";
+    errorPopUp.value = true;
   }
 } catch {
   onFaultyHash();
@@ -75,6 +85,8 @@ try {
 function onFaultyHash() {
   console.error("Error! No valid game settings found!");
   console.info("A popup should appear now!");
+  errorType = "link";
+  errorPopUp.value = true;
 }
 
 function keyPressed(key: string) {
@@ -122,6 +134,9 @@ function gameEnd(win: boolean) {
   }
   gameFinished.value = true;
 }
+
+
+
 </script>
 
 <style lang="scss">

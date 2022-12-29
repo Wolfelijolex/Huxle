@@ -32,7 +32,7 @@ const showStats = reactive({
 
 function getWinText() {
   if (won.value) {
-    return "CONGRATS! You won!";
+    return "CONGRATS!\n You won!";
   } else {
     var randomNumber = Math.floor(Math.random() * 10);
     switch (randomNumber) {
@@ -90,7 +90,7 @@ setTimeout(() => {
   console.log("showing stats");
   console.log(showStats);
   showStats.value = true;
-}, 200000);
+}, 2000);
 </script>
 
 <style lang="scss">

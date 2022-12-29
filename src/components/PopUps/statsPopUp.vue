@@ -20,7 +20,6 @@
 import { useGameStore } from "@/stores/game-store";
 import { reactive } from "vue";
 
-
 function closeStats() {
   statsOpen.value = false;
 }
@@ -35,7 +34,8 @@ const statsOpen = reactive({
 
 function copyToClipboard() {
   clipBoardButtonText.value = "copied to clipboard!";
-  navigator.clipboard.writeText("cool");
+  // todo get link from store
+  navigator.clipboard.writeText("link");
 }
 
 
@@ -54,7 +54,7 @@ const gameState = useGameStore();
 }
 
 .closeButton {
-  @apply absolute text-center duration-200 top-0 m-4 right-0 w-10 h-10 text-2xl bg-gray-400 text-white font-bold cursor-pointer;
+  @apply absolute text-center duration-200 top-0 m-2 right-0 w-10 h-10 text-2xl bg-gray-400 text-white font-bold cursor-pointer;
 }
 
 .closeButton:hover {
