@@ -86,7 +86,6 @@ function onFaultyHash() {
   console.error("Error! No valid game settings found!");
   console.info("A popup should appear now!");
   errorType = "link";
-  errorType = "switchLanguages"
   errorPopUp.value = true;
 }
 

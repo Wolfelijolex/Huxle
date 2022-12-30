@@ -4,20 +4,20 @@
       <div v-if="noButtons.value" class="popUpWindow">
         <div v-if="closeButton.value" class="closeButton" @click="closePopUp()">x</div>
         <div class="errorText">{{ errorText.value }}
-          <div v-if="showEmoji.value" class="Emoji">😭</div>
+          <div v-if="showEmoji.value" class="Emoji">😢</div>
         </div>
       </div>
       <div v-else class="popUpWindow">
         <div v-if="closeButton.value" class="closeButton" @click="closePopUp()">x</div>
         <div class="TextWithButtonsContainer">
-        <div class="errorText">{{ errorText.value }} {{ languageName }}
-          <div v-if="showEmoji.value" class="Emoji">😭</div>
+          <div class="errorText">{{ errorText.value }} {{ languageName }}
+            <div v-if="showEmoji.value" class="Emoji">😭</div>
+          </div>
+          <div class="buttonContainer">
+            <button class="button" @click="changeLanguage()">switch to {{ languageName }}</button>
+            <button class="button" @click="closePopUp()">cancel</button>
+          </div>
         </div>
-        <div class="buttonContainer">
-          <button class="button" @click="changeLanguage()">switch to {{ languageName }}</button>
-          <button class="button" @click="closePopUp()">cancel</button>
-        </div>
-      </div>
       </div>
     </div>
   </div>
@@ -70,8 +70,10 @@ const showEmoji = reactive({
 if (errorType.value == "UnknownLanguage") {
   errorText.value = "Sorry, but game is not aviailable in your language yet.";
   closeButton.value = true;
+  showEmoji.value = true;
 } else if (errorType.value == "link") {
-  errorText.value = "Sorry! The given link is invalid"
+  showEmoji.value = true;
+  errorText.value = "Sorry! The given link is invalid."
 } else if (errorType.value == "switchLanguages") {
   errorText.value = "Do you really want to discard your progress and switch to "
   noButtons.value = false;
@@ -86,7 +88,7 @@ if (errorType.value == "UnknownLanguage") {
 <style>
 .errorText {
   /* center text  */
-  @apply text-center text-black font-bold text-xl m-8;
+  @apply min-w-full flex-col text-center text-black font-bold text-xl p-8;
 }
 .buttonContainer {
   @apply flex flex-row justify-center;
