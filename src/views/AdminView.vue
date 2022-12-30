@@ -1,8 +1,8 @@
 <template>
   <form @submit.prevent="createLink" class="flex flex-col">
     <div class="font-bold my-4">{{ $t("admin.create") }}</div>
-    <TextInput label="admin.englishWord" v-model="englishWord" />
-    <TextInput label="admin.germanWord" v-model="germanWord" />
+    <TextInput label="admin.englishWord" v-model="englishWord" :invalid="!isEnglishWordValid" />
+    <TextInput label="admin.germanWord" v-model="germanWord" :invalid="!isGermanWordValid" />
     <button class="self-end my-4 px-4 py-2 bg-gray-500 text-slate-50 rounded curser-pointer font-bold hover-animation">
       {{ $t("admin.createLink") }}
     </button>
@@ -17,10 +17,14 @@
 <script lang="ts" setup>
 import TextInput from "@/components/TextInput.vue";
 import { toEncodedUrl, type GameSettings } from "@/utils/encoder.util";
-import { ref } from "vue";
+import { isValidWord } from "@/utils/game.util";
+import { computed, ref } from "vue";
 
 const englishWord = ref("");
 const germanWord = ref("");
+
+const isEnglishWordValid = computed(() => isValidWord(englishWord.value));
+const isGermanWordValid = computed(() => isValidWord(germanWord.value));
 
 const url = ref("");
 

@@ -2,12 +2,13 @@
   <div class="my-4 flex flex-col">
     <label class="mb-1 font-semibold" :for="id">{{ $t(props.label) }}</label>
     <input
-      class="border border-gray-500 bg-gray-300 text-black rounded p-2"
+      class="border-2 border-gray-500 bg-gray-300 text-black rounded p-2"
       type="text"
       required
       :id="id"
       maxlength="5"
       minlength="5"
+      :class="{ 'border-red-400': props.invalid && props.modelValue.length > 0 }"
       @input="emitUpdate"
     />
   </div>
@@ -24,6 +25,11 @@ const props = defineProps({
   modelValue: {
     type: String,
     required: true,
+  },
+  invalid: {
+    type: Boolean,
+    required: false,
+    default: false,
   },
 });
 
