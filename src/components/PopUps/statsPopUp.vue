@@ -3,21 +3,24 @@
     <div class="popUpBackground">
       <div class="popUpWindow">
         <button class="closeButton" @click="closeStats()">x</button>
-        <div>
-          <div class="statsHeadline">Stats:<br></div>
+        <div class="statsHeadline">Your stats:</div>
+        <p></p>
+        <div class = "gridContainer">
           <div class="grid">
-            <!-- <div class="gridItem">{{ gameState.allTries[0].char }}</div> -->
-            <div class="gridItem" v-for="cell in gameState.allTries" :key="cell.char">{{ cell.char }}</div>
-          </div>
-          <div class="statsContainer">
-            <div class="statsText">Time: {{ }} </div>
-            <div class="statsText">Guesses: {{ gameState.allTries.length / 5 }}</div>
-          </div>
+            <div v-for = "item in gameState.allTries" :key="item">
+              <div v-if="item.state === 'fresh'" class="gridItemFresh">{{ item.char }}</div>
+              <div v-else-if="item.state === 'not-included'" class="gridItemNotIncluded">{{ item.char }}</div>
+              <div v-else-if="item.state === 'wrong-pos'" class="gridItemWrongPos">{{ item.char }}</div>
+              <div v-else-if="item.state === 'correct'" class="gridItemCorrect">{{ item.char }}</div>
+            </div>
         </div>
-        <!-- <button class="shareButton" @click="copyToClipboard()">{{ clipBoardButtonText.value }}</button> -->
+          <button class="shareButton" @click="copyToClipboard()">{{ clipBoardButtonText.value }}</button>
+        </div>
       </div>
     </div>
   </div>
+
+
 </template>
 
 <script lang="ts" setup>
@@ -45,6 +48,7 @@ function copyToClipboard() {
 
 const gameState = useGameStore();
 
+gameState.allTries[1].state
 
 
 </script>
@@ -53,11 +57,28 @@ const gameState = useGameStore();
 <style>
 
 .grid {
-  @apply grid-cols-5 grid-rows-6 bg-center overflow-hidden;
+  @apply grid-cols-5 grid-rows-6 justify-center landscape:w-2/4 portrait:w-3/4 mt-20;
 }
-.gridItem {
-  @apply p-2 m-1 flex  text-white justify-center bg-gray-500 rounded-lg ;
+
+.gridContainer {
+  /* center the item */
+  @apply flex flex-col justify-center items-center w-full h-full;
+
 }
+
+.gridItemFresh {
+  @apply m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-gray-500 rounded-lg;
+}
+.gridItemNotIncluded {
+  @apply  m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-gray-500 rounded-lg;
+}
+.gridItemWrongPos {
+  @apply  m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-yellow-500 rounded-lg;
+}
+.gridItemCorrect {
+  @apply m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-green-500 rounded-lg;
+}
+
 
 .popUpWindow {
   @apply absolute flex top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 landscape:w-1/4 portrait:w-3/4 h-auto bg-white rounded-lg drop-shadow-lg;
@@ -68,7 +89,7 @@ const gameState = useGameStore();
 }
 
 .statsHeadline {
-  @apply min-w-full text-black font-bold text-xl p-8;
+  @apply absolute min-w-full text-black font-bold text-xl p-8;
 }
 
 .closeButton {
