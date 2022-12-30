@@ -2,10 +2,13 @@
   <div class="popUpBackground">
     <div class="popUpWindow">
       <div class="closeButton" @click="closePopUp()">x</div>
-      <div class="statsHeadline">
+      <div class="sharePopUpHeadline">
         link to share:
-        <div class="urlToShare">{{ linkToShare }}</div>
-        <button class="shareButton" @click="copyToClipboard()">📋</button>
+        <div class="buttonContainer">
+          <div class="urlToShare">{{ linkToShare }}</div>
+          <button class="urlShareButton" @click="copyToClipboard()" title="copy link to clipboard">{{clipboardEmoji.value}}</button>
+        </div>
+        <div class="message">{{clipboardMessage.value}}</div>
       </div>
     </div>
   </div>
@@ -20,9 +23,13 @@ import errorPopUp from "./errorPopUp.vue";
 const props = defineProps<{
   linkToShare: string;
 }>();
-
 const linkToShare = ref(props.linkToShare);
+
+linkToShare.value = "http://localhost:5173/eyJlbiI6ImZlbGl4IiwiZGUiOiJmZWxpeCJ9";
+
 function copyToClipboard() {
+  clipboardMessage.value = "copied to clipboard!";
+  clipboardEmoji.value = "✓";
   navigator.clipboard.writeText(linkToShare.value);
   console.log("copied to clipboard");
 }
@@ -34,59 +41,48 @@ function closePopUp() {
 const popUpOpen = reactive({
   value: true,
 });
+
+const clipboardMessage = reactive({
+  value: "",
+});
+const clipboardEmoji = reactive({
+  value: "📋",
+});
+
 statsPopUp;
 errorPopUp;
 </script>
 
 <style>
+
+.message {
+  @apply text-black font-normal text-base mt-2 select-none;
+}
+
+.buttonContainer {
+  @apply mt-2;
+}
+
 .popUpBackground {
   @apply absolute z-10 top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm;
 }
 
-.popUpWindow {
-  @apply absolute flex top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 landscape:w-1/4 portrait:w-3/4 h-auto bg-white rounded-lg drop-shadow-lg;
+.sharePopUpHeadline {
+  @apply min-w-full text-black font-bold text-xl p-8;
 }
 
-.shareLinkHeadline {
-  @apply text-center text-black font-bold text-xl m-8;
+.urlShareButton {
+  @apply font-bold duration-200 bg-slate-400 overflow-hidden  rounded-md w-28 text-center select-none;
 }
-
-.statsHeadline {
-  @apply text-black font-bold text-4xl m-8;
+.urlShareButton:hover {
+  @apply bg-slate-500;
+}
+.urlShareButton:active {
+  @apply bg-green-600;
 }
 
 .urlToShare {
-  @apply text-black font-bold bg-slate-200 overflow-hidden w-1/2 text-xl;
+  @apply text-black font-normal bg-slate-200 overflow-hidden w-max p-2 mr-2   text-base rounded-md overflow-ellipsis whitespace-nowrap select-all;
 }
 
-/* share button next to url to share gray background  square rounded of edges*/
-.shareButton {
-  @apply absolute text-center duration-200 w-10 h-10 text-2xl bg-gray-400 text-white font-bold cursor-pointer;
-}
-.shareButton:hover {
-  @apply bg-blue-500;
-}
-.shareButton:active {
-  @apply absolute bg-blue-600 w-9 h-9;
-}
-
-/* .closeButton {
-  @apply absolute text-center duration-200 top-0 m-2 right-0 w-10 h-10 text-2xl bg-gray-400 text-white font-bold cursor-pointer;
-} */
-
-.closeButton:hover {
-  @apply bg-red-500;
-}
-
-.closeButton:active {
-  @apply absolute bg-red-600 w-9 h-9;
-}
-
-.statsContainer {
-  @apply mb-32 m-8 w-96;
-}
-
-.statsText {
-  @apply text-black font-bold text-2xl;
-}
 </style>

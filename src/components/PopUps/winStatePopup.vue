@@ -99,7 +99,7 @@ setTimeout(() => {
 }
 
 .popUpWindow {
-  @apply absolute flex top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 landscape:w-1/4 portrait:w-3/4 h-auto bg-white rounded-lg drop-shadow-lg;
+  @apply absolute duration-200 flex top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 landscape:w-1/4 portrait:w-3/4 h-auto bg-white rounded-lg drop-shadow-lg;
 }
 
 .winStateText {
@@ -109,7 +109,6 @@ setTimeout(() => {
 .Emoji {
   @apply text-7xl m-4 duration-300 select-none;
   animation: shakeHead 2s linear infinite;
-
 }
 
 .Emoji:hover {

@@ -62,7 +62,7 @@ const gameState = useGameStore();
 }
 
 .closeButton {
-  @apply absolute text-center duration-200 top-0 m-2 right-0 w-10 h-10 text-2xl bg-gray-400 text-white font-bold cursor-pointer;
+  @apply absolute text-center select-none duration-200 top-0 m-2 right-0 w-8 h-8 text-xl bg-gray-400 text-white font-bold cursor-pointer rounded;
 }
 
 .closeButton:hover {
@@ -70,7 +70,7 @@ const gameState = useGameStore();
 }
 
 .closeButton:active {
-  @apply absolute bg-red-600 w-9 h-9;
+  @apply absolute bg-red-600;
 }
 
 .statsContainer {
