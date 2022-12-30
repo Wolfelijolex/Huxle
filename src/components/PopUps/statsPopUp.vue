@@ -5,12 +5,16 @@
         <button class="closeButton" @click="closeStats()">x</button>
         <div>
           <div class="statsHeadline">Stats:<br></div>
+          <div class="grid">
+            <!-- <div class="gridItem">{{ gameState.allTries[0].char }}</div> -->
+            <div class="gridItem" v-for="cell in gameState.allTries" :key="cell.char">{{ cell.char }}</div>
+          </div>
           <div class="statsContainer">
-            <div class="statsText">Time: {{ }} </div> //todo get time from store
+            <div class="statsText">Time: {{ }} </div>
             <div class="statsText">Guesses: {{ gameState.allTries.length / 5 }}</div>
           </div>
         </div>
-        <button class="shareButton" @click="copyToClipboard()">{{ clipBoardButtonText.value }}</button>
+        <!-- <button class="shareButton" @click="copyToClipboard()">{{ clipBoardButtonText.value }}</button> -->
       </div>
     </div>
   </div>
@@ -41,12 +45,18 @@ function copyToClipboard() {
 
 const gameState = useGameStore();
 
+
+
 </script>
 
 
 <style>
-.popUpBackground {
-  @apply absolute z-10 top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm;
+
+.grid {
+  @apply grid-cols-5 grid-rows-6 bg-center overflow-hidden;
+}
+.gridItem {
+  @apply p-2 m-1 flex  text-white justify-center bg-gray-500 rounded-lg ;
 }
 
 .popUpWindow {
@@ -58,7 +68,7 @@ const gameState = useGameStore();
 }
 
 .statsHeadline {
-  @apply text-black font-bold text-4xl m-8;
+  @apply min-w-full text-black font-bold text-xl p-8;
 }
 
 .closeButton {
@@ -74,11 +84,11 @@ const gameState = useGameStore();
 }
 
 .statsContainer {
-  @apply mb-32 m-8 w-96;
+  @apply pl-8 pr-8 pb-8 ;
 }
 
 .statsText {
-  @apply text-black font-bold text-2xl;
+  @apply text-black font-bold text-xl m-1;
 }
 
 .shareButton {

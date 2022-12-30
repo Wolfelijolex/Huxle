@@ -1,6 +1,6 @@
 <template>
   <div v-if=popUpOpen.value>
-    <SharePopUp :linkToShare="url" />
+    <SharePopUp :linkToShare="url"/>
   </div>
   <form @submit.prevent="createLink" class="flex flex-col">
     <div class="font-bold my-4">{{ $t("admin.create") }}</div>
@@ -34,6 +34,7 @@ const popUpOpen = reactive({
 
 function setPopUpOpen() {
   popUpOpen.value = true;
+  SharePopUp.props.linkToShare = url;
 }
 
 

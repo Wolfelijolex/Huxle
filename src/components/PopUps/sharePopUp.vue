@@ -1,14 +1,17 @@
 <template>
-  <div class="popUpBackground">
-    <div class="popUpWindow">
-      <div class="closeButton" @click="closePopUp()">x</div>
-      <div class="sharePopUpHeadline">
-        link to share:
-        <div class="buttonContainer">
-          <div class="urlToShare">{{ linkToShare }}</div>
-          <button class="urlShareButton" @click="copyToClipboard()" title="copy link to clipboard">{{clipboardEmoji.value}}</button>
+  <div v-if="popUpOpen.value">
+    <div class="popUpBackground">
+      <div class="popUpWindow">
+        <div class="closeButton" @click="closePopUp()">x</div>
+        <div class="sharePopUpHeadline">
+          link to share:
+          <div class="buttonContainer">
+            <div class="urlToShare">{{ linkToShare }}</div>
+            <button class="urlShareButton" @click="copyToClipboard()"
+              title="copy link to clipboard">{{ clipboardEmoji.value }}</button>
+          </div>
+          <div class="message">{{ clipboardMessage.value }}</div>
         </div>
-        <div class="message">{{clipboardMessage.value}}</div>
       </div>
     </div>
   </div>
@@ -16,16 +19,15 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from "vue";
-import winStatePopup from "./winStatePopup.vue";
 import statsPopUp from "./statsPopUp.vue";
 import errorPopUp from "./errorPopUp.vue";
 
 const props = defineProps<{
   linkToShare: string;
 }>();
-const linkToShare = ref(props.linkToShare);
+var linkToShare = ref(props.linkToShare)
 
-linkToShare.value = "http://localhost:5173/eyJlbiI6ImZlbGl4IiwiZGUiOiJmZWxpeCJ9";
+// linkToShare.value = "http://localhost:5173/eyJlbiI6ImZlbGl4IiwiZGUiOiJmZWxpeCJ9"; //todo get link
 
 function copyToClipboard() {
   clipboardMessage.value = "copied to clipboard!";
@@ -36,6 +38,8 @@ function copyToClipboard() {
 
 function closePopUp() {
   popUpOpen.value = false;
+  console.log("close popUp");
+  
 }
 
 const popUpOpen = reactive({
