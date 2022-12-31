@@ -6,7 +6,7 @@
         <div class="sharePopUpHeadline">
           link to share:
           <div class="buttonContainer">
-            <div class="urlToShare">{{ linkToShare }}</div>
+            <div class="urlToShare">{{ linkToShare.valueOf }}</div>
             <button class="urlShareButton" @click="copyToClipboard()"
               title="copy link to clipboard">{{ clipboardEmoji.value }}</button>
           </div>
@@ -76,7 +76,7 @@ errorPopUp;
 }
 
 .urlShareButton {
-  @apply font-bold duration-200 bg-slate-400 overflow-hidden  rounded-md w-28 text-center select-none;
+  @apply font-bold duration-200 text-white bg-slate-400 overflow-hidden  rounded-md w-28 text-center select-none;
 }
 .urlShareButton:hover {
   @apply bg-slate-500;
@@ -86,7 +86,7 @@ errorPopUp;
 }
 
 .urlToShare {
-  @apply text-black font-normal bg-slate-200 overflow-hidden w-max p-2 mr-2   text-base rounded-md overflow-ellipsis whitespace-nowrap select-all;
+  @apply text-black font-normal w-full bg-slate-200 overflow-hidden p-2 mr-2   text-base rounded-md overflow-ellipsis whitespace-nowrap select-all;
 }
 
 </style>
