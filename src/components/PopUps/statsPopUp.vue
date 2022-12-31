@@ -3,8 +3,13 @@
     <div class="popUpBackground">
       <div class="popUpWindow">
         <button class="closeButton" @click="closeStats()">x</button>
-        <div class="statsHeadline">Your stats:</div>
-        <p></p>
+        <div class="popUpWindowGrid" >
+        <div class = "statsContainer">
+        <div class="statsHeadline">Your stats:
+          <div class = "statsText">Time: 23 seconds Placeholder</div> <!-- todo get time from store -->
+          <div class = "statsText">Tries: {{ gameState.allTries.length/5 }}</div>
+        </div>
+        </div>
         <div class = "gridContainer">
           <div class="grid">
             <div v-for = "item in gameState.allTries" :key="item">
@@ -22,6 +27,7 @@
         </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 
@@ -62,7 +68,7 @@ gameState.allTries[1].state
 <style>
 
 .grid {
-  @apply grid-cols-5 grid-rows-6 justify-center landscape:w-2/4 portrait:w-3/4 mt-20;
+  @apply grid-cols-5 grid-rows-6 justify-center landscape:w-2/4 portrait:w-3/4;
 }
 
 .gridContainer {
@@ -70,18 +76,23 @@ gameState.allTries[1].state
   @apply flex flex-col justify-center items-center w-full h-full pb-6;
 
 }
-
+.popUpWindowGrid {
+  @apply flex flex-col w-full h-full;
+}
 .gridItemFresh {
-  @apply m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-gray-100 rounded-lg;
+  @apply m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-gray-100 rounded-lg select-none;
 }
 .gridItemNotIncluded {
-  @apply  m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-gray-500 rounded-lg;
+  @apply  m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-gray-500 rounded-lg select-none;
 }
 .gridItemWrongPos {
-  @apply  m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-yellow-500 rounded-lg;
+  @apply  m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-yellow-500 rounded-lg select-none;
 }
 .gridItemCorrect {
-  @apply m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-green-500 rounded-lg;
+  @apply m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-green-500 rounded-lg duration-200 select-none;
+}
+.gridItemCorrect:hover {
+  @apply animate-pulse;
 }
 
 
@@ -94,7 +105,7 @@ gameState.allTries[1].state
 }
 
 .statsHeadline {
-  @apply absolute min-w-full text-black font-bold text-xl p-8;
+  @apply text-black font-bold text-4xl;
 }
 
 .closeButton {
@@ -110,11 +121,11 @@ gameState.allTries[1].state
 }
 
 .statsContainer {
-  @apply pl-8 pr-8 pb-8 ;
+  @apply p-8;
 }
 
 .statsText {
-  @apply text-black font-bold text-xl m-1;
+  @apply text-black text-base;
 }
 
 .shareButton {
