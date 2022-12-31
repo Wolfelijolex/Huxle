@@ -87,13 +87,12 @@ if (errorType.value == "UnknownLanguage") {
 
 <style>
 .errorText {
-  /* center text  */
+
   @apply min-w-full flex-col text-center text-black font-bold text-xl p-8;
 }
 .buttonContainer {
   @apply flex flex-row justify-center;
 }
-/*  button center bottom rounded corners */
 .button {
   @apply text-center duration-200 p-2 mb-8 ml-2 mr-2 w-auto h-auto  text-xl bg-gray-400 text-white font-bold cursor-pointer rounded;
 }
@@ -103,7 +102,6 @@ if (errorType.value == "UnknownLanguage") {
 .button:active {
   @apply bg-blue-600;
 }
-
 .textWithButtonsContainer {
   @apply flex flex-col justify-center;
 }

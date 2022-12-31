@@ -5,7 +5,8 @@
   <div v-else>
     <div class="popUpBackground">
       <div class="popUpWindow">
-        <div class="winStateText">{{ getWinText() }}
+        <div class="winStateText">
+          {{ getWinText() }}
           <div class="Emoji">{{ getWinEmoji() }}</div>
         </div>
       </div>
@@ -49,14 +50,15 @@ function getWinText() {
     case 5:
       return "You are really bad at this.";
     case 6:
-      return "This u? 💩"
+      return "This u? 💩";
     case 7:
-      return "🤮L🤮O🤮S🤮E🤮R🤮"
+      return "🤮L🤮O🤮S🤮E🤮R🤮";
     case 8:
-      return "Why are you even trying?"
+      return "Why are you even trying?";
     case 9:
-      return "this was a waste of my time"
-    default: "CRINGE! You lost."
+      return "this was a waste of my time";
+    default:
+      "CRINGE! You lost.";
     }
   }
 }
@@ -123,8 +125,6 @@ setTimeout(() => {
   @apply m-16;
 }
 
-
-
 @keyframes shakeHead {
   0% {
     transform: rotate(0deg);
@@ -145,7 +145,5 @@ setTimeout(() => {
   100% {
     transform: rotate(0deg);
   }
-
-
 }
 </style>

@@ -3,35 +3,35 @@
     <div class="popUpBackground">
       <div class="popUpWindow">
         <button class="closeButton" @click="closeStats()">x</button>
-        <div class="popUpWindowGrid" >
-        <div class = "statsContainer">
-        <div class="statsHeadline">Your stats:
-          <div class = "statsText">Time: 23 seconds Placeholder</div> <!-- todo get time from store -->
-          <div class = "statsText">Tries: {{ gameState.allTries.length/5 }}</div>
-        </div>
-        </div>
-        <div class = "gridContainer">
-          <div class="grid">
-            <div v-for = "item in gameState.allTries" :key="item">
-              <div v-if="item.state === 'fresh'" class="gridItemFresh">{{ item.char }}</div>
-              <div v-else-if="item.state === 'not-included'" class="gridItemNotIncluded">{{ item.char }}</div>
-              <div v-else-if="item.state === 'wrong-pos'" class="gridItemWrongPos">{{ item.char }}</div>
-              <div v-else-if="item.state === 'correct'" class="gridItemCorrect">{{ item.char }}</div>
-            </div>
-            <div v-for = "i in ((gameState.allTries.length - 30) *-1)" :key="i">
-              <div class = "gridItemFresh"></div>
+        <div class="popUpWindowGrid">
+          <div class="statsContainer">
+            <div class="statsHeadline">
+              Your stats:
+              <div class="statsText">Time: 23 seconds Placeholder</div>
+              <!-- todo get time from store -->
+              <div class="statsText">Tries: {{ gameState.allTries.length / 5 }}</div>
             </div>
           </div>
-        <div class="shareButtonContainer">
-        <button class="shareButton" @click="copyToClipboard()">{{ clipBoardButtonText.value }}</button>
-        </div>
+          <div class="gridContainer">
+            <div class="grid">
+              <div v-for="item in gameState.allTries" :key="item">
+                <div v-if="item.state === 'fresh'" class="gridItemFresh">{{ item.char }}</div>
+                <div v-else-if="item.state === 'not-included'" class="gridItemNotIncluded">{{ item.char }}</div>
+                <div v-else-if="item.state === 'wrong-pos'" class="gridItemWrongPos">{{ item.char }}</div>
+                <div v-else-if="item.state === 'correct'" class="gridItemCorrect">{{ item.char }}</div>
+              </div>
+              <div v-for="i in (gameState.allTries.length - 30) * -1" :key="i">
+                <div class="gridItemFresh"></div>
+              </div>
+            </div>
+            <div class="shareButtonContainer">
+              <button class="shareButton" @click="copyToClipboard()">{{ clipBoardButtonText.value }}</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    </div>
   </div>
-
-
 </template>
 
 <script lang="ts" setup>
@@ -56,17 +56,11 @@ function copyToClipboard() {
   navigator.clipboard.writeText("link");
 }
 
-
 const gameState = useGameStore();
-
-gameState.allTries[1].state
-
 
 </script>
 
-
 <style>
-
 .grid {
   @apply grid-cols-5 grid-rows-6 justify-center landscape:w-2/4 portrait:w-3/4;
 }
@@ -74,7 +68,6 @@ gameState.allTries[1].state
 .gridContainer {
   /* center the item */
   @apply flex flex-col justify-center items-center w-full h-full pb-6;
-
 }
 .popUpWindowGrid {
   @apply flex flex-col w-full h-full;
@@ -83,10 +76,10 @@ gameState.allTries[1].state
   @apply m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-gray-100 rounded-lg select-none;
 }
 .gridItemNotIncluded {
-  @apply  m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-gray-500 rounded-lg select-none;
+  @apply m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-gray-500 rounded-lg select-none;
 }
 .gridItemWrongPos {
-  @apply  m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-yellow-500 rounded-lg select-none;
+  @apply m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-yellow-500 rounded-lg select-none;
 }
 .gridItemCorrect {
   @apply m-1 w-auto h-12 font-bold text-white flex flex-col justify-center items-center bg-green-500 rounded-lg duration-200 select-none;
@@ -94,7 +87,6 @@ gameState.allTries[1].state
 .gridItemCorrect:hover {
   @apply animate-pulse;
 }
-
 
 .popUpWindow {
   @apply absolute flex top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 landscape:w-1/4 portrait:w-3/4 h-auto bg-white rounded-lg drop-shadow-lg;
@@ -142,5 +134,4 @@ gameState.allTries[1].state
 .shareButton:active {
   @apply bg-blue-600;
 }
-
 </style>

@@ -7,8 +7,9 @@
           link to share:
           <div class="buttonContainer">
             <div class="urlToShare">{{ linkToShare.valueOf }}</div>
-            <button class="urlShareButton" @click="copyToClipboard()"
-              title="copy link to clipboard">{{ clipboardEmoji.value }}</button>
+            <button class="urlShareButton" @click="copyToClipboard()" title="copy link to clipboard">
+              {{ clipboardEmoji.value }}
+            </button>
           </div>
           <div class="message">{{ clipboardMessage.value }}</div>
         </div>
@@ -25,7 +26,7 @@ import errorPopUp from "./errorPopUp.vue";
 const props = defineProps<{
   linkToShare: string;
 }>();
-var linkToShare = ref(props.linkToShare)
+var linkToShare = ref(props.linkToShare);
 
 // linkToShare.value = "http://localhost:5173/eyJlbiI6ImZlbGl4IiwiZGUiOiJmZWxpeCJ9"; //todo get link
 
@@ -39,7 +40,6 @@ function copyToClipboard() {
 function closePopUp() {
   popUpOpen.value = false;
   console.log("close popUp");
-  
 }
 
 const popUpOpen = reactive({
@@ -58,7 +58,6 @@ errorPopUp;
 </script>
 
 <style>
-
 .message {
   @apply text-black font-normal text-base mt-2 select-none;
 }
@@ -88,5 +87,4 @@ errorPopUp;
 .urlToShare {
   @apply text-black font-normal w-full bg-slate-200 overflow-hidden p-2 mr-2   text-base rounded-md overflow-ellipsis whitespace-nowrap select-all;
 }
-
 </style>
