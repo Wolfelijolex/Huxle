@@ -16,16 +16,15 @@
 import KeyboardComponent from "@/components/keyboard/KeyboardComponent.vue";
 import ErrorPopUp from "@/components/PopUps/errorPopUp.vue";
 import WordGridComponentVue from "@/components/WordGrid/WordGridComponent.vue";
+import { useKeyboard } from "@/composables/keyboard";
 import { isSupportedLocale } from "@/i18n";
 import { useCurrentLineStore } from "@/stores/current-line-store";
 import { useGameStore } from "@/stores/game-store";
 import { decode } from "@/utils/encoder.util";
-import { getCharStatesForLine, isCorrectWord, isValidKey } from "@/utils/game.util";
-import { onMounted, onUnmounted, ref, reactive } from "vue";
+import { getCharStatesForLine, isCorrectWord } from "@/utils/game.util";
+import { reactive, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
-
-
 import winStatePopUp from "../components/PopUps/winStatePopup.vue";
 
 const lineStore = useCurrentLineStore();
@@ -40,46 +39,40 @@ const errorPopUp = reactive({
   value: false,
 });
 
+useKeyboard(keyPressed);
+resetGame(locale.value);
 
-const keyboardHandler = (event: KeyboardEvent) => {
-  if (event.key.length === 1) {
-    if (!isValidKey(event.key.toUpperCase())) {
-      return;
+watch(locale, () => {
+  // TODO @FELIX RADER: Show popup asking for confirmation
+  resetGame(locale.value);
+});
+
+function resetGame(language: string) {
+  if (gameFinished.value) {
+    return;
+  }
+
+  lineStore.reset();
+  try {
+    if (Array.isArray(hash)) {
+      throw new Error("Hash is an array!");
     }
 
-    keyPressed(event.key.toUpperCase());
-  } else {
-    keyPressed(event.key);
+    const gameSettings = decode(hash);
+    console.log("Game settings:", gameSettings);
+
+    if (isSupportedLocale(language)) {
+      gameStore.setWord(gameSettings[language].toUpperCase());
+    } else {
+      // TODO @FELIX RADER: Maybe show popup that language is not supported?
+      gameStore.setWord(gameSettings.en.toUpperCase());
+      errorType = "UnknownLanguage";
+      errorPopUp.value = true;
+    }
+  } catch {
+    onFaultyHash();
+    gameStore.setWord("GAMER"); //TODO remove
   }
-};
-
-onMounted(() => {
-  window.addEventListener("keyup", keyboardHandler);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("keyup", keyboardHandler);
-});
-
-try {
-  if (Array.isArray(hash)) {
-    throw new Error("Hash is an array!");
-  }
-
-  const gameSettings = decode(hash);
-  console.log("Game settings:", gameSettings);
-
-  if (isSupportedLocale(locale.value)) {
-    gameStore.setWord(gameSettings[locale.value].toUpperCase());
-  } else {
-    // TODO @FELIX RADER: Maybe show popup that language is not supported?
-    gameStore.setWord(gameSettings.en.toUpperCase());
-    errorType = "UnknownLanguage";
-    errorPopUp.value = true;
-  }
-} catch {
-  onFaultyHash();
-  gameStore.setWord("GAMER"); //TODO remove
 }
 
 function onFaultyHash() {
@@ -90,7 +83,7 @@ function onFaultyHash() {
 }
 
 function keyPressed(key: string) {
-  if (gameFinished.value) {
+  if (gameFinished.value || !gameStore.isValid) {
     return;
   }
 
@@ -104,7 +97,7 @@ function keyPressed(key: string) {
     gameStore.addTry(line);
     lineStore.reset();
 
-    if (isCorrectWord(line, gameStore.word ?? "")) {
+    if (isCorrectWord(line, gameStore.word)) {
       gameEnd(true);
     } else if (gameStore.tries.length >= 6) {
       gameEnd(false);
@@ -134,9 +127,6 @@ function gameEnd(win: boolean) {
   }
   gameFinished.value = true;
 }
-
-
-
 </script>
 
 <style lang="scss">

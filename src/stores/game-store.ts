@@ -9,9 +9,12 @@ export type Key = {
 };
 
 export const useGameStore = defineStore("game-store", () => {
-  const word = ref<string | null>(null);
+  const isValid = ref<boolean>(false);
+  const word = ref<string>("");
   function setWord(newWord: string) {
     word.value = newWord;
+    tries.value = [];
+    isValid.value = true;
   }
 
   const tries = ref<Key[][]>([]);
@@ -23,5 +26,5 @@ export const useGameStore = defineStore("game-store", () => {
     return tries.value.reduce((acc, curr) => [...acc, ...curr], [] as Key[]);
   });
 
-  return { word, setWord, tries, addTry, allTries };
+  return { isValid, word, setWord, tries, addTry, allTries };
 });

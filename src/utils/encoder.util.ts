@@ -1,3 +1,5 @@
+import { isValidWord } from "./game.util";
+
 export type GameSettings = {
   de: string;
   en: string;
@@ -34,5 +36,5 @@ function validateGameSettingsObject(data: unknown): data is GameSettings {
 }
 
 function validateGameSettings(settings: GameSettings): boolean {
-  return settings.de.length === 5 && settings.en.length === 5;
+  return isValidWord(settings.de) && isValidWord(settings.en);
 }
