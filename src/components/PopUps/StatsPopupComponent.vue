@@ -3,10 +3,10 @@
     <div class="popUpWindowGrid">
       <div class="p-8">
         <div class="statsHeadline">
-          Your stats:
-          <div class="statsText">Time: 23 seconds Placeholder</div>
+          {{ $t("stats.headline") }}
+          <div class="statsText">{{ $t("stats.time") }} 23 {{ $t("stats.seconds")}} Placeholder</div>
           <!-- todo get time from store -->
-          <div class="statsText">Tries: {{ gameState.allTries.length / 5 }}</div>
+          <div class="statsText">{{ $t("stats.share") }} {{ gameState.allTries.length / 5 }}</div>
         </div>
       </div>
       <div class="gridContainer">
@@ -18,7 +18,7 @@
           </div>
         </div>
         <div class="shareButtonContainer">
-          <button class="shareButton" @click="copyToClipboard()">{{ clipBoardButtonText.value }}</button>
+          <button class="shareButton" @click="copyToClipboard()">{{ $t("stats.share") }}</button>
         </div>
       </div>
     </div>

@@ -41,7 +41,7 @@ function closePopUp() {
   }
 
   &:active {
-    @apply absolute bg-red-600;
+    @apply bg-red-600;
   }
 }
 </style>
