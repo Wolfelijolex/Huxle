@@ -16,7 +16,7 @@
 
 <script lang="ts" setup>
 import { ref, reactive } from "vue";
-import statsPopUp from "./statsPopUp.vue";
+import statsPopUp from "./StatsPopupComponent.vue";
 import { useGameStore } from "@/stores/game-store";
 
 const gameState = useGameStore();
@@ -37,28 +37,28 @@ function getWinText() {
   } else {
     var randomNumber = Math.floor(Math.random() * 10);
     switch (randomNumber) {
-    case 0:
-      return "You are stupid.";
-    case 1:
-      return "You lost. cringe";
-    case 2:
-      return "You are a loser.";
-    case 3:
-      return "You are a failure.";
-    case 4:
-      return "You are a disgrace.";
-    case 5:
-      return "You are really bad at this.";
-    case 6:
-      return "This u? 💩";
-    case 7:
-      return "🤮L🤮O🤮S🤮E🤮R🤮";
-    case 8:
-      return "Why are you even trying?";
-    case 9:
-      return "this was a waste of my time";
-    default:
-      "CRINGE! You lost.";
+      case 0:
+        return "You are stupid.";
+      case 1:
+        return "You lost. cringe";
+      case 2:
+        return "You are a loser.";
+      case 3:
+        return "You are a failure.";
+      case 4:
+        return "You are a disgrace.";
+      case 5:
+        return "You are really bad at this.";
+      case 6:
+        return "This u? 💩";
+      case 7:
+        return "🤮L🤮O🤮S🤮E🤮R🤮";
+      case 8:
+        return "Why are you even trying?";
+      case 9:
+        return "this was a waste of my time";
+      default:
+        "CRINGE! You lost.";
     }
   }
 }
@@ -67,20 +67,20 @@ function getWinEmoji() {
   if (won.value) {
     var numberOfTries = gameState.allTries.length / 5;
     switch (true) {
-    case numberOfTries === 6:
-      return "🤨";
-    case numberOfTries === 5:
-      return "🫠";
-    case numberOfTries === 4:
-      return "🙂";
-    case numberOfTries === 3:
-      return "😎";
-    case numberOfTries === 2:
-      return "🥰";
-    case numberOfTries === 1:
-      return "🤩";
-    default:
-      return "😡";
+      case numberOfTries === 6:
+        return "🤨";
+      case numberOfTries === 5:
+        return "🫠";
+      case numberOfTries === 4:
+        return "🙂";
+      case numberOfTries === 3:
+        return "😎";
+      case numberOfTries === 2:
+        return "🥰";
+      case numberOfTries === 1:
+        return "🤩";
+      default:
+        return "😡";
     }
   } else {
     return "🤮";

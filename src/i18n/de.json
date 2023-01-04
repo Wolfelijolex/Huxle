@@ -2,7 +2,8 @@
   "createdSuccessfully": "Du hat erfolgreich ein Projekt erstellt mit",
   "huxle": "Huxle",
   "global": {
-    "admin": "Admin"
+    "admin": "Admin",
+    "copyToClipboard": "Kopieren"
   },
   "admin": {
     "create": "Neues Huxle erstellen",

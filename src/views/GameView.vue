@@ -1,9 +1,10 @@
 <template>
+  <winStatePopUp v-if="gameFinished" :won="gameWon" />
+  <ErrorPopUp v-if="errorPopUp.value" :errorType="errorType" />
+
   <div class="flex flex-col justify-between gap-4 h-full">
     <WordGridComponentVue :past-tries="gameStore.tries" :current-line="lineStore.tries" />
     <KeyboardComponent @key="keyPressed" />
-    <winStatePopUp v-if="gameFinished" :won="gameWon" />
-    <ErrorPopUp v-if="errorPopUp.value" :errorType="errorType" />
   </div>
   <div>
     Game Settings:
