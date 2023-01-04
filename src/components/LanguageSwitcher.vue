@@ -30,14 +30,14 @@ function changeLocale(newLocale: string) {
 }
 
 .LanguageSwitcher {
-  @apply flex gap-2 text-sm text-white text-base font-normal;
+  @apply flex gap-2 text-sm text-white text-base font-normal align-middle pt-2 pb-2;
 }
 
 .LanguageSwitcher li {
-  @apply flex gap-2 text-sm text-white text-base font-normal ;
+  @apply flex gap-2 text-sm text-white text-base font-normal; 
 }
 
 .LanguageSwitcher li button {
-  @apply flex gap-2 text-sm text-white text-base font-normal pt-1 pb-1 pl-3 pr-3 duration-200 hover:bg-slate-500 ;
+  @apply flex text-sm text-white text-base font-normal pt-1 pb-1 pl-4 pr-4 duration-200 hover:bg-slate-500 rounded-xl;
 }
 </style>

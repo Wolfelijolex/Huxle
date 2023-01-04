@@ -3,7 +3,7 @@
     <div class="navBar">
       <div class="container px-2 mx-auto">
         <div class="py-3 flex flex-row justify-between align-middle">
-          <p class="navBarLogo">{{ $t("huxle") }}</p>
+          <p class="navBarLogo">{{ $t("HUXLE") }}</p>
           <LanguageSwitcher />
         </div>
       </div>
@@ -30,7 +30,7 @@ div {
 }
 
 .navBarLogo {
-  @apply text-white text-lg font-bold cursor-pointer duration-200;
+  @apply text-white text-2xl font-bold cursor-pointer duration-200 p-2 hover:bg-gray-600 rounded-xl;
 }
 
 
