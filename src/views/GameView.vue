@@ -13,12 +13,13 @@
 <script lang="ts" setup>
 import KeyboardComponent from "@/components/keyboard/KeyboardComponent.vue";
 import WordGridComponentVue from "@/components/WordGrid/WordGridComponent.vue";
+import { useKeyboard } from "@/composables/keyboard";
 import { isSupportedLocale } from "@/i18n";
 import { useCurrentLineStore } from "@/stores/current-line-store";
 import { useGameStore } from "@/stores/game-store";
 import { decode } from "@/utils/encoder.util";
-import { getCharStatesForLine, isCorrectWord, isValidKey } from "@/utils/game.util";
-import { onMounted, onUnmounted, ref, watch } from "vue";
+import { getCharStatesForLine, isCorrectWord } from "@/utils/game.util";
+import { ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 
@@ -28,27 +29,8 @@ const gameFinished = ref(false);
 const hash = useRoute().params.hash;
 const { locale } = useI18n();
 
+useKeyboard(keyPressed);
 resetGame(locale.value);
-
-const keyboardHandler = (event: KeyboardEvent) => {
-  if (event.key.length === 1) {
-    if (!isValidKey(event.key.toUpperCase())) {
-      return;
-    }
-
-    keyPressed(event.key.toUpperCase());
-  } else {
-    keyPressed(event.key);
-  }
-};
-
-onMounted(() => {
-  window.addEventListener("keyup", keyboardHandler);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("keyup", keyboardHandler);
-});
 
 watch(locale, () => {
   // TODO @FELIX RADER: Show popup asking for confirmation
@@ -87,7 +69,7 @@ function onFaultyHash() {
 }
 
 function keyPressed(key: string) {
-  if (gameFinished.value) {
+  if (gameFinished.value || !gameStore.isValid) {
     return;
   }
 
@@ -101,7 +83,7 @@ function keyPressed(key: string) {
     gameStore.addTry(line);
     lineStore.reset();
 
-    if (isCorrectWord(line, gameStore.word ?? "")) {
+    if (isCorrectWord(line, gameStore.word)) {
       gameEnd(true);
     } else if (gameStore.tries.length >= 6) {
       gameEnd(false);

@@ -25,15 +25,9 @@ export function isValidWord(word: string): boolean {
 
 export function getCharStatesForLine(line: Key[]): Key[] {
   const gameStore = useGameStore();
+  const remainingOccurances = getKeyOccurances(gameStore.word);
 
-  const word = gameStore.word;
-  if (!word) {
-    throw new Error("No word set");
-  }
-
-  const remainingOccurances = getKeyOccurances(word);
-
-  let result = line.map((k, i) => mapCorrectChar(k, i, word, remainingOccurances));
+  let result = line.map((k, i) => mapCorrectChar(k, i, gameStore.word, remainingOccurances));
   result = result.map((k) => mapIncorretChar(k, remainingOccurances));
 
   return result;
