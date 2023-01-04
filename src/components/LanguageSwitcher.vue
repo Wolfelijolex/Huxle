@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="flex gap-2 text-sm">
+      <ul class="LanguageSwitcher">
       <li v-for="availableLocale in availableLocales" :key="availableLocale">
         <button
           class="rounded-full secondary"
@@ -26,6 +26,18 @@ function changeLocale(newLocale: string) {
 
 <style lang="scss" scoped>
 .active {
-  @apply text-blue-600;
+  @apply text-blue-600 bg-gray-900 text-white font-bold;
+}
+
+.LanguageSwitcher {
+  @apply flex gap-2 text-sm text-white text-base font-normal;
+}
+
+.LanguageSwitcher li {
+  @apply flex gap-2 text-sm text-white text-base font-normal ;
+}
+
+.LanguageSwitcher li button {
+  @apply flex gap-2 text-sm text-white text-base font-normal pt-1 pb-1 pl-3 pr-3 duration-200 hover:bg-slate-500 ;
 }
 </style>
