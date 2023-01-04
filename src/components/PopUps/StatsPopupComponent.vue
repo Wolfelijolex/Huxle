@@ -53,18 +53,18 @@ const gameState = useGameStore();
 
 <style lang="scss">
 .grid {
-  @apply grid-cols-5 grid-rows-6 justify-center gap-4 w-3/4;
+  @apply grid-cols-5 grid-rows-6 justify-center w-auto;
 }
 
 .gridContainer {
-  @apply flex flex-col justify-center items-center w-full h-full pb-6;
+  @apply flex flex-col justify-center items-center w-full h-full mb-6;
 }
 .popUpWindowGrid {
   @apply flex flex-col w-full h-full;
 }
 
 .gridItem {
-  @apply m-1 w-12 h-12 font-bold text-white flex flex-col justify-center items-center bg-gray-100 rounded-lg select-none;
+  @apply m-1 w-10 h-10 font-bold text-white flex flex-col justify-center items-center bg-gray-100 rounded-lg select-none;
 
   &.not-included {
     @apply bg-gray-500;
@@ -95,7 +95,7 @@ const gameState = useGameStore();
 }
 
 .shareButton {
-  @apply font-bold text-lg duration-200 bg-slate-400 overflow-hidden rounded-xl w-full h-auto p-4 text-center select-none;
+  @apply font-bold text-lg duration-200 bg-slate-400 overflow-hidden rounded-xl w-full h-auto mt-5 p-4 text-center select-none;
 
   &:hover {
     @apply bg-blue-500;

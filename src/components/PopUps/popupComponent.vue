@@ -30,11 +30,11 @@ function closePopUp() {
 }
 
 .popUpWindow {
-  @apply absolute flex top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-auto bg-white rounded-lg drop-shadow-lg;
+  @apply absolute flex top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-auto h-auto bg-white rounded-lg drop-shadow-lg;
 }
 
 .closeButton {
-  @apply absolute z-40 text-center duration-200 top-0 m-2 right-0 w-8 h-8 text-xl bg-red-400 text-white font-bold cursor-pointer rounded;
+  @apply absolute z-40 text-center duration-200 top-0 m-2 right-0 w-8 h-8 text-xl bg-red-400 text-white font-bold cursor-pointer rounded select-none;
 
   &:hover {
     @apply bg-red-500;
