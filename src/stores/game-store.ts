@@ -12,6 +12,7 @@ export const useGameStore = defineStore("game-store", () => {
   const word = ref<string | null>(null);
   function setWord(newWord: string) {
     word.value = newWord;
+    tries.value = [];
   }
 
   const tries = ref<Key[][]>([]);

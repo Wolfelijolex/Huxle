@@ -18,7 +18,7 @@ import { useCurrentLineStore } from "@/stores/current-line-store";
 import { useGameStore } from "@/stores/game-store";
 import { decode } from "@/utils/encoder.util";
 import { getCharStatesForLine, isCorrectWord, isValidKey } from "@/utils/game.util";
-import { onMounted, onUnmounted, ref } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
 
@@ -27,6 +27,8 @@ const gameStore = useGameStore();
 const gameFinished = ref(false);
 const hash = useRoute().params.hash;
 const { locale } = useI18n();
+
+resetGame(locale.value);
 
 const keyboardHandler = (event: KeyboardEvent) => {
   if (event.key.length === 1) {
@@ -48,23 +50,35 @@ onUnmounted(() => {
   window.removeEventListener("keyup", keyboardHandler);
 });
 
-try {
-  if (Array.isArray(hash)) {
-    throw new Error("Hash is an array!");
+watch(locale, () => {
+  // TODO @FELIX RADER: Show popup asking for confirmation
+  resetGame(locale.value);
+});
+
+function resetGame(language: string) {
+  if (gameFinished.value) {
+    return;
   }
 
-  const gameSettings = decode(hash);
-  console.log("Game settings:", gameSettings);
+  lineStore.reset();
+  try {
+    if (Array.isArray(hash)) {
+      throw new Error("Hash is an array!");
+    }
 
-  if (isSupportedLocale(locale.value)) {
-    gameStore.setWord(gameSettings[locale.value].toUpperCase());
-  } else {
-    // TODO @FELIX RADER: Maybe show popup that language is not supported?
-    gameStore.setWord(gameSettings.en.toUpperCase());
+    const gameSettings = decode(hash);
+    console.log("Game settings:", gameSettings);
+
+    if (isSupportedLocale(language)) {
+      gameStore.setWord(gameSettings[language].toUpperCase());
+    } else {
+      // TODO @FELIX RADER: Maybe show popup that language is not supported?
+      gameStore.setWord(gameSettings.en.toUpperCase());
+    }
+  } catch {
+    onFaultyHash();
+    gameStore.setWord("GAMER"); //TODO remove
   }
-} catch {
-  onFaultyHash();
-  gameStore.setWord("GAMER"); //TODO remove
 }
 
 function onFaultyHash() {
