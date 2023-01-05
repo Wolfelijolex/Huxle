@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import PopupComponent from "@/components/PopUps/PopupComponent.vue";
+import PopupComponent from "@/components/PopUps/BasePopupComponent.vue";
 import TextInput from "@/components/TextInput.vue";
 import { toEncodedUrl, type GameSettings } from "@/utils/encoder.util";
 import { isValidWord } from "@/utils/game.util";

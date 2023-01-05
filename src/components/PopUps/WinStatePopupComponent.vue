@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import PopupComponent from "@/components/PopUps/PopupComponent.vue";
+import PopupComponent from "@/components/PopUps/BasePopupComponent.vue";
 import { useGameStore } from "@/stores/game-store";
 
 const gameState = useGameStore();

@@ -25,7 +25,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import PopupComponentVue from "@/components/PopUps/PopupComponent.vue";
+import PopupComponentVue from "@/components/PopUps/BasePopupComponent.vue";
 
 const props = defineProps<{
   errorType: string;
