@@ -1,5 +1,5 @@
 <template>
-  <PopupComponent :show-close-button="showCloseButton" :show-popup="isOpen" @close-popup="isOpen = false">
+  <PopupComponentVue :show-close-button="showCloseButton" :show-popup="isOpen" @close-popup="isOpen = false">
     <div v-if="showButtons">
       <div class="errorText">
         {{ errorText }}
@@ -20,12 +20,12 @@
         </div>
       </div>
     </div>
-  </PopupComponent>
+  </PopupComponentVue>
 </template>
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import PopupComponent from "./PopupComponent.vue";
+import PopupComponentVue from "./PopupComponent.vue";
 
 const props = defineProps<{
   errorType: string;
