@@ -16,8 +16,8 @@
             <div v-if="showEmoji.value" class="Emoji">😭</div>
           </div>
           <div class="buttonContainer">
-            <button class="button" @click="changeLanguage()">switch to {{ languageName }}</button>
-            <button class="button" @click="closePopUp()">cancel</button>
+            <button class="button" @click="changeLanguage()">{{ $t("languageSwitch.language") }} {{ languageName }}</button>
+            <button class="button" @click="closePopUp()">{{ $t("languageSwitch.cancel") }}</button>
           </div>
         </div>
       </div>

@@ -22,7 +22,7 @@
     "loseMessage5": "Du bist echt nicht gut, ne?",
     "loseMessage6": "Bist das hier du? 💩",
     "loseMessage7": "🤮L🤮O🤮S🤮E🤮R🤮",
-    "loseMessage8": "Warum probierst du es überhaupt",
+    "loseMessage8": "Warum probierst du es überhaupt?",
     "loseMessage9": "Das ist eine Zeitverschwendung",
     "loseMessage10": "CRINGE! Du hast verloren."
   },
@@ -34,5 +34,20 @@
     "tries": "Versuche:",
     "copied": "in Zwischenablage kopiert",
     "share": "teilen"
+  },
+
+  "languageSwitch": {
+    "language": "Sprache ändern auf",
+    "cancel": "abbrechen",
+    "german": "Deutsch",
+    "english": "Englisch"
+  },
+
+  "errorTexts": {
+    "UnknownLanguage": "Es tut uns leid, aber das Spiel ist leider nicht in Ihrer Sprache verfügbar. Bitte wählen Sie eine andere Sprache aus.",
+    "link": "Es tut uns leid, aber der Link ist ungültig.",
+    "switchLanguages": "Wollen Sie wirklich Ihre Spielfortschritte verwerfen und die sprache ändern auf ",
+    "error": "Es tut uns leid, aber es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
   }
+
 }

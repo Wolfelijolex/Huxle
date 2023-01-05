@@ -1,5 +1,5 @@
 {
-  "createdSuccessfully": "You’ve successfully created a project with",
+  "createdSuccessfully": "You've successfully created a project with",
   "huxle": "Huxle",
   "languages": {
     "de": "Deutsch",
@@ -37,5 +37,19 @@
     "tries": "Tries:",
     "copied": "copied to clipboard!",
     "share": "copy"
+  },
+
+  "languageSwitch": {
+    "language": "Switch language to ",
+    "cancel": "cancel",
+    "german": "german",
+    "english": "english"
+  },
+
+  "errorTexts": {
+    "UnknownLanguage": "Sorry, but game is not aviailable in your language yet.",
+    "link": "Sorry! The given link is invalid.",
+    "switchLanguages": "Do you really want to discard your progress and switch to ",
+    "error": "Sorry, but an error occured. Please try again later. If the error persists, please contact us."
   }
 }

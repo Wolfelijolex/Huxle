@@ -87,7 +87,7 @@ function getWinEmoji() {
   }
 }
 
-// after 3 seconds, close the popup
+// after 2 seconds, close the popup
 setTimeout(() => {
   console.log("showing stats");
   console.log(showStats);
