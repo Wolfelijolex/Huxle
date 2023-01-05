@@ -1,5 +1,8 @@
 <template>
-  <WinStatePopup v-if="gameFinished" :won="gameWon" />
+  <template v-if="gameFinished">
+    <WinStatePopup v-if="!showStats" :won="gameWon" />
+    <StatsPopup v-else />
+  </template>
   <ErrorPopup v-if="errorPopUp" :errorType="errorType" />
 
   <div class="flex flex-col justify-between gap-4 h-full">
@@ -11,7 +14,8 @@
 <script lang="ts" setup>
 import KeyboardComponent from "@/components/keyboard/KeyboardComponent.vue";
 import ErrorPopup from "@/components/PopUps/ErrorPopupComponent.vue";
-import WinStatePopup from "../components/PopUps/WinStatePopupComponent.vue";
+import WinStatePopup from "@/components/PopUps/WinStatePopupComponent.vue";
+import StatsPopup from "@/components/PopUps/StatsPopupComponent.vue";
 import WordGridComponentVue from "@/components/WordGrid/WordGridComponent.vue";
 import { useKeyboard } from "@/composables/keyboard";
 import { isSupportedLocale } from "@/i18n";
@@ -32,6 +36,7 @@ const { locale } = useI18n();
 
 const errorType = ref("language");
 const errorPopUp = ref(false);
+const showStats = ref(false);
 
 useKeyboard(keyPressed);
 resetGame(locale.value);
@@ -119,6 +124,11 @@ function endGame(hasWon: boolean) {
   gameWon.value = hasWon;
   gameStore.setEndTimestamp(Date.now());
   gameFinished.value = true;
+
+  // After 2 seconds, show stats
+  setTimeout(() => {
+    showStats.value = true;
+  }, 2000);
 }
 </script>
 

@@ -1,8 +1,5 @@
 <template>
-  <div v-if="showStats">
-    <StatsPopUp />
-  </div>
-  <PopupComponent :show-popup="!showStats" :show-close-button="false">
+  <PopupComponent :show-popup="true" :show-close-button="false">
     <div class="winStateText">
       {{ getWinText() }}
       <div class="Emoji">{{ getWinEmoji() }}</div>
@@ -11,8 +8,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import StatsPopUp from "./StatsPopupComponent.vue";
 import PopupComponent from "./PopupComponent.vue";
 import { useGameStore } from "@/stores/game-store";
 
@@ -22,11 +17,8 @@ const props = defineProps<{
   won: boolean;
 }>();
 
-const won = ref(props.won);
-const showStats = ref(false);
-
 function getWinText() {
-  if (won.value) {
+  if (props.won) {
     return "CONGRATS!\n You won!";
   } else {
     const randomNumber = Math.floor(Math.random() * 10);
@@ -58,7 +50,7 @@ function getWinText() {
 }
 
 function getWinEmoji() {
-  if (won.value) {
+  if (props.won) {
     const numberOfTries = gameState.allTries.length / 5;
     switch (true) {
       case numberOfTries === 6:
@@ -80,13 +72,6 @@ function getWinEmoji() {
     return "🤮";
   }
 }
-
-// after 2 seconds, close the popup
-setTimeout(() => {
-  console.log("showing stats");
-  console.log(showStats);
-  showStats.value = true;
-}, 2000);
 </script>
 
 <style lang="scss">
