@@ -1,9 +1,9 @@
 <template>
-  <template v-if="gameFinished">
+  <template v-if="gameStore.endTimestamp != 0">
     <WinStatePopup v-if="!showStats" :won="gameWon" />
     <StatsPopup v-else />
   </template>
-  <ErrorPopup v-if="errorPopUp" :errorType="errorType" />
+  <ErrorPopup v-if="showErrorPopUp" :errorType="errorType" />
 
   <div class="flex flex-col justify-between gap-4 h-full">
     <WordGridComponentVue :past-tries="gameStore.tries" :current-line="lineStore.tries" />
@@ -13,7 +13,7 @@
 
 <script lang="ts" setup>
 import KeyboardComponent from "@/components/keyboard/KeyboardComponent.vue";
-import ErrorPopup from "@/components/PopUps/ErrorPopupComponent.vue";
+import ErrorPopup, { type Error } from "@/components/PopUps/ErrorPopupComponent.vue";
 import WinStatePopup from "@/components/PopUps/WinStatePopupComponent.vue";
 import StatsPopup from "@/components/PopUps/StatsPopupComponent.vue";
 import WordGridComponentVue from "@/components/WordGrid/WordGridComponent.vue";
@@ -29,60 +29,50 @@ import { useRoute } from "vue-router";
 
 const lineStore = useCurrentLineStore();
 const gameStore = useGameStore();
-const gameFinished = ref(false);
-const gameWon = ref(false);
 const hash = useRoute().params.hash;
 const { locale } = useI18n();
 
-const errorType = ref("language");
-const errorPopUp = ref(false);
+const gameWon = ref(false);
+const errorType = ref<Error>("error");
+const showErrorPopUp = ref(false);
 const showStats = ref(false);
 
 useKeyboard(keyPressed);
 resetGame(locale.value);
 
 watch(locale, () => {
-  // TODO @FELIX RADER: Show popup asking for confirmation
   resetGame(locale.value);
 });
 
 function resetGame(language: string) {
-  if (gameFinished.value) {
+  if (gameStore.endTimestamp !== 0) {
     return;
   }
 
   lineStore.reset();
+  gameStore.reset();
   try {
     if (Array.isArray(hash)) {
       throw new Error("Hash is an array!");
     }
 
     const gameSettings = decode(hash);
-    console.log("Game settings:", gameSettings);
 
     if (isSupportedLocale(language)) {
       gameStore.setWord(gameSettings[language].toUpperCase());
     } else {
-      // TODO @FELIX RADER: Maybe show popup that language is not supported?
       gameStore.setWord(gameSettings.en.toUpperCase());
       errorType.value = "UnknownLanguage";
-      errorPopUp.value = true;
+      showErrorPopUp.value = true;
     }
   } catch {
-    onFaultyHash();
-    gameStore.setWord("GAMER"); //TODO remove
+    errorType.value = "link";
+    showErrorPopUp.value = true;
   }
 }
 
-function onFaultyHash() {
-  console.error("Error! No valid game settings found!");
-  console.info("A popup should appear now!");
-  errorType.value = "link";
-  errorPopUp.value = true;
-}
-
 function keyPressed(key: string) {
-  if (gameFinished.value || !gameStore.isValid) {
+  if (gameStore.endTimestamp !== 0 || !gameStore.isValid) {
     return;
   }
 
@@ -123,7 +113,6 @@ function keyPressed(key: string) {
 function endGame(hasWon: boolean) {
   gameWon.value = hasWon;
   gameStore.setEndTimestamp(Date.now());
-  gameFinished.value = true;
 
   // After 2 seconds, show stats
   setTimeout(() => {

@@ -1,15 +1,16 @@
 {
-  "createdSuccessfully": "Du hat erfolgreich ein Projekt erstellt mit",
   "huxle": "Huxle",
   "global": {
     "admin": "Admin",
-    "copyToClipboard": "Kopieren"
+    "copyToClipboard": "Kopieren",
+    "cancel": "Abbrechen"
   },
   "admin": {
     "create": "Neues Huxle erstellen",
     "createLink": "Link generieren",
-    "englishWord": "Englisch",
-    "germanWord": "Deutsch"
+    "englishWord": "Englisches Wort",
+    "germanWord": "Deutsches Wort",
+    "linkToShare": "Teilbarer Link"
   },
 
   "winState": {
@@ -24,28 +25,23 @@
     "loseMessage7": "🤮L🤮O🤮S🤮E🤮R🤮",
     "loseMessage8": "Warum probierst du es überhaupt?",
     "loseMessage9": "Das ist eine Zeitverschwendung",
-    "loseMessage10": "CRINGE! Du hast verloren."
+    "loseMessage10": "KRINSCH! Du hast verloren."
   },
 
   "stats": {
     "headline": "Übersicht",
-    "time": "Zeit: { time } Sekunden",
+    "time": "Zeit: { time }s",
     "tries": "Versuche: { value }",
     "copied": "In Zwischenablage kopiert",
-    "share": "Teilen"
+    "share": "Teilen",
+    "toggleLetters": "Buchstaben ein-/ausblenden"
   },
 
-  "languageSwitch": {
-    "language": "Sprache ändern auf",
-    "cancel": "abbrechen",
-    "german": "Deutsch",
-    "english": "Englisch"
-  },
-
-  "errorTexts": {
-    "UnknownLanguage": "Es tut uns leid, aber das Spiel ist leider nicht in Ihrer Sprache verfügbar. Bitte wählen Sie eine andere Sprache aus.",
-    "link": "Es tut uns leid, aber der Link ist ungültig.",
-    "switchLanguages": "Wollen Sie wirklich Ihre Spielfortschritte verwerfen und die sprache ändern auf ",
-    "error": "Es tut uns leid, aber es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
+  "errors": {
+    "switchLang": "Sprache wechseln",
+    "switchLangText": "Möchtest du die Sprache wechseln? Dein bisheriger Spielstand geht dabei verloren.",
+    "invalidLinkText": "Der Link ist ungültig. Bitte überprüfe ihn und versuche es erneut.",
+    "genericErrorText": "Es tut uns leid, aber es ist ein Fehler aufgetreten. Bitte versuche es später erneut.",
+    "unsupportedLangText": "Entschuldigung, aber das Spiel ist in dieser Sprache noch nicht verfügbar. Englisch wird als Standard verwendet."
   }
 }

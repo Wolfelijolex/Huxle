@@ -1,7 +1,7 @@
 <template>
   <PopupComponent :show-close-button="true" :show-popup="statsOpen" @close-popup="closeStats()">
     <div class="popUpWindowGrid">
-      <div class="p-8">
+      <div class="py-8">
         <div class="statsHeadline">
           {{ $t("stats.headline") }}
         </div>
@@ -79,10 +79,6 @@ const gameState = useGameStore();
 </script>
 
 <style lang="scss" scoped>
-.customGrid {
-  @apply grid-cols-5 grid-rows-6 justify-center w-auto;
-}
-
 .popUpWindowGrid {
   @apply flex flex-col w-full h-full m-5;
 }

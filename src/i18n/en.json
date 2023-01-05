@@ -1,5 +1,4 @@
 {
-  "createdSuccessfully": "You've successfully created a project with",
   "huxle": "Huxle",
   "languages": {
     "de": "Deutsch",
@@ -7,7 +6,8 @@
   },
   "global": {
     "admin": "Admin",
-    "copyToClipboard": "Copy to clipboard"
+    "copyToClipboard": "Copy to clipboard",
+    "cancel": "Cancel"
   },
   "admin": {
     "create": "Create a new Huxle",
@@ -30,26 +30,21 @@
     "loseMessage9": "this was a waste of my time",
     "loseMessage10": "CRINGE! You lost."
   },
+
   "stats": {
     "headline": "Your Stats:",
-    "time": "Time: { time } seconds",
+    "time": "Time: { time }s",
     "tries": "Tries: { value }",
     "copied": "Copied to clipboard!",
     "share": "Copy image to clipboard.",
     "toggleLetters": "Show/hide letters"
   },
 
-  "languageSwitch": {
-    "language": "Switch language to ",
-    "cancel": "cancel",
-    "german": "german",
-    "english": "english"
-  },
-
-  "errorTexts": {
-    "UnknownLanguage": "Sorry, but game is not aviailable in your language yet.",
-    "link": "Sorry! The given link is invalid.",
-    "switchLanguages": "Do you really want to discard your progress and switch to ",
-    "error": "Sorry, but an error occured. Please try again later. If the error persists, please contact us."
+  "errors": {
+    "switchLang": "Switch Language",
+    "switchLangText": "Do you really want to discard your progress and switch languages?",
+    "invalidLinkText": "Sorry, but the given link does not contain valid game settings.",
+    "genericErrorText": "Sorry, but an error occured. Please try again later. If the error persists, please contact us.",
+    "unsupportedLangText": "Sorry, but game is not aviailable in your language yet. English will be used as fallback."
   }
 }

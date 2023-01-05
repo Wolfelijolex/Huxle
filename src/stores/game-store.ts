@@ -40,6 +40,14 @@ export const useGameStore = defineStore("game-store", () => {
     return tries.value.reduce((acc, curr) => [...acc, ...curr], [] as Key[]);
   });
 
+  function reset() {
+    startTimestamp.value = 0;
+    endTimestamp.value = 0;
+    isValid.value = false;
+    word.value = "";
+    tries.value = [];
+  }
+
   return {
     isValid,
     word,
@@ -52,5 +60,6 @@ export const useGameStore = defineStore("game-store", () => {
     tries,
     addTry,
     allTries,
+    reset,
   };
 });

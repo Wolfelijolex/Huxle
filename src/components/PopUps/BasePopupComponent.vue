@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 const props = defineProps<{
-  showCloseButton: boolean;
+  showCloseButton?: boolean;
   showPopup: boolean;
 }>();
 
