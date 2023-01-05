@@ -10,7 +10,7 @@
     class="text-3xl font-bold text-center border-4"
   >
     <slot name="viewer">
-      {{ props.character.toUpperCase() }}
+      {{ props.character }}
     </slot>
   </div>
 </template>

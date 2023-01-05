@@ -63,11 +63,11 @@ div {
   }
   @media screen and (min-width: 1200px) {
     @apply text-4xl;
-    width: $width * 2.5;
-    height: $height * 2.5;
-    line-height: $lineHeight * 2.5;
+    width: $width * 2;
+    height: $height * 2;
+    line-height: $lineHeight * 2;
     &.wider {
-      width: $widers * 2.5;
+      width: $widers * 2;
     }
   }
 

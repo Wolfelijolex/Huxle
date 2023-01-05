@@ -15,5 +15,13 @@
     "ecmaVersion": "latest"
   },
   "plugins": ["@typescript-eslint", "editorconfig"],
+  "overrides": [
+    {
+      "files": ["*.vue"],
+      "rules": {
+        "editorconfig/indent": "off"
+      }
+    }
+  ],
   "root": true
 }

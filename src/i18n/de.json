@@ -2,12 +2,50 @@
   "createdSuccessfully": "Du hat erfolgreich ein Projekt erstellt mit",
   "huxle": "Huxle",
   "global": {
-    "admin": "Admin"
+    "admin": "Admin",
+    "copyToClipboard": "Kopieren"
   },
   "admin": {
     "create": "Neues Huxle erstellen",
     "createLink": "Link generieren",
     "englishWord": "Englisch",
     "germanWord": "Deutsch"
+  },
+
+  "winState": {
+    "winMessage0": "GLÜCKWUNSCH!\n Du hast gewonnen!",
+    "loseMessage0": "Du bist dumm",
+    "loseMessage1": "Du hast verloren! KRINSCH!",
+    "loseMessage2": "Du bist ein Verlierer",
+    "loseMessage3": "Du bist ein Versager",
+    "loseMessage4": "Du bist ABSCHAUM",
+    "loseMessage5": "Du bist echt nicht gut, ne?",
+    "loseMessage6": "Bist das hier du? 💩",
+    "loseMessage7": "🤮L🤮O🤮S🤮E🤮R🤮",
+    "loseMessage8": "Warum probierst du es überhaupt?",
+    "loseMessage9": "Das ist eine Zeitverschwendung",
+    "loseMessage10": "CRINGE! Du hast verloren."
+  },
+
+  "stats": {
+    "headline": "Übersicht",
+    "time": "Zeit: { time } Sekunden",
+    "tries": "Versuche: { value }",
+    "copied": "In Zwischenablage kopiert",
+    "share": "Teilen"
+  },
+
+  "languageSwitch": {
+    "language": "Sprache ändern auf",
+    "cancel": "abbrechen",
+    "german": "Deutsch",
+    "english": "Englisch"
+  },
+
+  "errorTexts": {
+    "UnknownLanguage": "Es tut uns leid, aber das Spiel ist leider nicht in Ihrer Sprache verfügbar. Bitte wählen Sie eine andere Sprache aus.",
+    "link": "Es tut uns leid, aber der Link ist ungültig.",
+    "switchLanguages": "Wollen Sie wirklich Ihre Spielfortschritte verwerfen und die sprache ändern auf ",
+    "error": "Es tut uns leid, aber es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
   }
 }

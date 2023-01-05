@@ -1,17 +1,55 @@
 {
-  "createdSuccessfully": "You’ve successfully created a project with",
+  "createdSuccessfully": "You've successfully created a project with",
   "huxle": "Huxle",
   "languages": {
     "de": "Deutsch",
     "en": "English"
   },
   "global": {
-    "admin": "Admin"
+    "admin": "Admin",
+    "copyToClipboard": "Copy to clipboard"
   },
   "admin": {
     "create": "Create a new Huxle",
     "createLink": "Create Link",
     "englishWord": "English word",
-    "germanWord": "German word"
+    "germanWord": "German word",
+    "linkToShare": "Link to share:"
+  },
+  "winState": {
+    "winMessage": "CONGRATS!\n You won!",
+    "loseMessage0": "You are stupid.",
+    "loseMessage1": "You lost. cringe",
+    "loseMessage2": "You are a loser.",
+    "loseMessage3": "You are a failure.",
+    "loseMessage4": "You are a disgrace.",
+    "loseMessage5": "You are really bad at this.",
+    "loseMessage6": "This u? 💩",
+    "loseMessage7": "🤮L🤮O🤮S🤮E🤮R🤮",
+    "loseMessage8": "Why are you even trying?",
+    "loseMessage9": "this was a waste of my time",
+    "loseMessage10": "CRINGE! You lost."
+  },
+  "stats": {
+    "headline": "Your Stats:",
+    "time": "Time: { time } seconds",
+    "tries": "Tries: { value }",
+    "copied": "Copied to clipboard!",
+    "share": "Copy image to clipboard.",
+    "toggleLetters": "Show/hide letters"
+  },
+
+  "languageSwitch": {
+    "language": "Switch language to ",
+    "cancel": "cancel",
+    "german": "german",
+    "english": "english"
+  },
+
+  "errorTexts": {
+    "UnknownLanguage": "Sorry, but game is not aviailable in your language yet.",
+    "link": "Sorry! The given link is invalid.",
+    "switchLanguages": "Do you really want to discard your progress and switch to ",
+    "error": "Sorry, but an error occured. Please try again later. If the error persists, please contact us."
   }
 }
