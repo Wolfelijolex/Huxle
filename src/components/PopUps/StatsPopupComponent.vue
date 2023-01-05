@@ -5,8 +5,7 @@
         <div class="statsHeadline">
           {{ $t("stats.headline") }}
         </div>
-        <div class="statsText">{{ $t("stats.time", { time: 23 }) }}</div>
-        <!-- todo get time from store -->
+        <div class="statsText">{{ $t("stats.time", { time: gameState.totalTime }) }}</div>
         <div class="statsText">{{ $t("stats.tries", { value: gameState.allTries.length / 5 }) }}</div>
       </div>
       <div class="w-full h-full mb-6">

@@ -29,7 +29,7 @@ function getWinText() {
   if (won.value) {
     return "CONGRATS!\n You won!";
   } else {
-    var randomNumber = Math.floor(Math.random() * 10);
+    const randomNumber = Math.floor(Math.random() * 10);
     switch (randomNumber) {
       case 0:
         return "You are stupid.";
@@ -59,7 +59,7 @@ function getWinText() {
 
 function getWinEmoji() {
   if (won.value) {
-    var numberOfTries = gameState.allTries.length / 5;
+    const numberOfTries = gameState.allTries.length / 5;
     switch (true) {
       case numberOfTries === 6:
         return "🤨";

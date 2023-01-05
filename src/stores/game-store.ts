@@ -17,6 +17,20 @@ export const useGameStore = defineStore("game-store", () => {
     isValid.value = true;
   }
 
+  const startTimestamp = ref<number>(0);
+  function setStartTimestamp(newTimestamp: number) {
+    startTimestamp.value = newTimestamp;
+  }
+  const endTimestamp = ref<number>(0);
+  function setEndTimestamp(newEndTimestamp: number) {
+    endTimestamp.value = newEndTimestamp;
+  }
+
+  const totalTime = computed(() => {
+    const sec = (endTimestamp.value - startTimestamp.value) / 1000;
+    return sec.toFixed(2);
+  });
+
   const tries = ref<Key[][]>([]);
   function addTry(newTry: Key[]) {
     tries.value.push(newTry);
@@ -26,5 +40,17 @@ export const useGameStore = defineStore("game-store", () => {
     return tries.value.reduce((acc, curr) => [...acc, ...curr], [] as Key[]);
   });
 
-  return { isValid, word, setWord, tries, addTry, allTries };
+  return {
+    isValid,
+    word,
+    setWord,
+    startTimestamp,
+    setStartTimestamp,
+    endTimestamp,
+    setEndTimestamp,
+    totalTime,
+    tries,
+    addTry,
+    allTries,
+  };
 });
