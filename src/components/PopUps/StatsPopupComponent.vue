@@ -37,7 +37,7 @@
 <script lang="ts" setup>
 import { useGameStore } from "@/stores/game-store";
 import { ref } from "vue";
-import PopupComponent from "./PopupComponent.vue";
+import PopupComponent from "@/components/PopUps/PopupComponent.vue";
 import html2canvas from "html2canvas";
 
 function closeStats() {
