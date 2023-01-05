@@ -32,11 +32,11 @@
   },
   "stats": {
     "headline": "Your Stats:",
-    "time": "Time:",
-    "seconds": "seconds",
-    "tries": "Tries:",
-    "copied": "copied to clipboard!",
-    "share": "copy"
+    "time": "Time: { time } seconds",
+    "tries": "Tries: { value }",
+    "copied": "Copied to clipboard!",
+    "share": "Copy image to clipboard.",
+    "toggleLetters": "Show/hide letters"
   },
 
   "languageSwitch": {

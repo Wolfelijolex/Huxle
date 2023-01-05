@@ -29,11 +29,10 @@
 
   "stats": {
     "headline": "Übersicht",
-    "time": "Zeit:",
-    "seconds": "Sekunden",
-    "tries": "Versuche:",
-    "copied": "in Zwischenablage kopiert",
-    "share": "teilen"
+    "time": "Zeit: { time } Sekunden",
+    "tries": "Versuche: { value }",
+    "copied": "In Zwischenablage kopiert",
+    "share": "Teilen"
   },
 
   "languageSwitch": {
@@ -49,5 +48,4 @@
     "switchLanguages": "Wollen Sie wirklich Ihre Spielfortschritte verwerfen und die sprache ändern auf ",
     "error": "Es tut uns leid, aber es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut."
   }
-
 }

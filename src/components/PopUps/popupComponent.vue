@@ -1,5 +1,5 @@
 <template>
-  <div v-if="props.showPopUp">
+  <div v-if="props.showPopup">
     <div class="popUpBackground">
       <div class="popUpWindow">
         <div v-if="props.showCloseButton" class="closeButton" @click="closePopUp()">x</div>
@@ -12,15 +12,15 @@
 <script lang="ts" setup>
 const props = defineProps<{
   showCloseButton: boolean;
-  showPopUp: boolean;
+  showPopup: boolean;
 }>();
 
 const emit = defineEmits<{
-  (event: "closePopUp"): void;
+  (event: "closePopup"): void;
 }>();
 
 function closePopUp() {
-  emit("closePopUp");
+  emit("closePopup");
 }
 </script>
 

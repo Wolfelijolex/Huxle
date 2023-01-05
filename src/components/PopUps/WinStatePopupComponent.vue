@@ -1,22 +1,19 @@
 <template>
-  <div v-if="showStats.value">
-    <statsPopUp />
+  <div v-if="showStats">
+    <StatsPopUp />
   </div>
-  <div v-else>
-    <div class="popUpBackground">
-      <div class="popUpWindow">
-        <div class="winStateText">
-          {{ getWinText() }}
-          <div class="Emoji">{{ getWinEmoji() }}</div>
-        </div>
-      </div>
+  <PopupComponent :show-popup="!showStats" :show-close-button="false">
+    <div class="winStateText">
+      {{ getWinText() }}
+      <div class="Emoji">{{ getWinEmoji() }}</div>
     </div>
-  </div>
+  </PopupComponent>
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive } from "vue";
-import statsPopUp from "./StatsPopupComponent.vue";
+import { ref } from "vue";
+import StatsPopUp from "./StatsPopupComponent.vue";
+import PopupComponent from "./PopupComponent.vue";
 import { useGameStore } from "@/stores/game-store";
 
 const gameState = useGameStore();
@@ -26,10 +23,7 @@ const props = defineProps<{
 }>();
 
 const won = ref(props.won);
-
-const showStats = reactive({
-  value: false,
-});
+const showStats = ref(false);
 
 function getWinText() {
   if (won.value) {

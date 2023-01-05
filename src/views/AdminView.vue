@@ -1,5 +1,5 @@
 <template>
-  <PopupComponent :showCloseButton="true" :showPopUp="showPopup" @closePopUp="showPopup = false">
+  <PopupComponent :show-close-button="true" :show-popup="showPopup" @close-popup="showPopup = false">
     <div class="min-w-full text-black font-bold text-xl p-8">
       {{ $t("admin.linkToShare") }}
       <div class="flex min-w-full mt-4 mb-4 landscape:w-2/4 portrait:w-3/4">

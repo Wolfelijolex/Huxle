@@ -1,21 +1,17 @@
 <template>
-  <winStatePopUp v-if="gameFinished" :won="gameWon" />
-  <ErrorPopUp v-if="errorPopUp.value" :errorType="errorType" />
+  <WinStatePopup v-if="gameFinished" :won="gameWon" />
+  <ErrorPopup v-if="errorPopUp.value" :errorType="errorType" />
 
   <div class="flex flex-col justify-between gap-4 h-full">
     <WordGridComponentVue :past-tries="gameStore.tries" :current-line="lineStore.tries" />
     <KeyboardComponent @key="keyPressed" />
   </div>
-  <div>
-    Game Settings:
-    <pre>{{ gameStore.word ?? "invalid" }}</pre>
-    <pre>Defaulting to "GAMER"</pre>
-  </div>
 </template>
 
 <script lang="ts" setup>
 import KeyboardComponent from "@/components/keyboard/KeyboardComponent.vue";
-import ErrorPopUp from "@/components/PopUps/errorPopUp.vue";
+import ErrorPopup from "@/components/PopUps/ErrorPopupComponent.vue";
+import WinStatePopup from "../components/PopUps/WinStatePopupComponent.vue";
 import WordGridComponentVue from "@/components/WordGrid/WordGridComponent.vue";
 import { useKeyboard } from "@/composables/keyboard";
 import { isSupportedLocale } from "@/i18n";
@@ -26,7 +22,6 @@ import { getCharStatesForLine, isCorrectWord } from "@/utils/game.util";
 import { reactive, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
-import winStatePopUp from "../components/PopUps/winStatePopup.vue";
 
 const lineStore = useCurrentLineStore();
 const gameStore = useGameStore();

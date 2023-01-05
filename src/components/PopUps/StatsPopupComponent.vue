@@ -1,24 +1,34 @@
 <template>
-  <PopupComponent :show-close-button="true" :show-pop-up="statsOpen.value" @close-pop-up="closeStats()">
+  <PopupComponent :show-close-button="true" :show-popup="statsOpen" @close-popup="closeStats()">
     <div class="popUpWindowGrid">
       <div class="p-8">
         <div class="statsHeadline">
           {{ $t("stats.headline") }}
-          <div class="statsText">{{ $t("stats.time") }} 23 {{ $t("stats.seconds")}} Placeholder</div>
-          <!-- todo get time from store -->
-          <div class="statsText">{{ $t("stats.share") }} {{ gameState.allTries.length / 5 }}</div>
         </div>
+        <div class="statsText">{{ $t("stats.time", { time: 23 }) }}</div>
+        <!-- todo get time from store -->
+        <div class="statsText">{{ $t("stats.tries", { value: gameState.allTries.length / 5 }) }}</div>
       </div>
-      <div class="gridContainer">
-        <div class="grid">
+      <div class="w-full h-full mb-6">
+        <div id="FinalGameGrid" class="grid grid-rows-6 grid-cols-5 grid-width">
           <div v-for="i in 30" :key="i">
-            <div :class="'gridItem ' + gameState.allTries[i - 1]?.state ?? ''">
-              {{ gameState.allTries[i - 1]?.char ?? "" }}
+            <div
+              :class="{
+                gridItem: true,
+                'not-included': gameState.allTries[i - 1]?.state === 'not-included',
+                'wrong-pos': gameState.allTries[i - 1]?.state === 'wrong-pos',
+                correct: gameState.allTries[i - 1]?.state === 'correct',
+              }"
+            >
+              <span v-if="showLetters">
+                {{ gameState.allTries[i - 1]?.char ?? "" }}
+              </span>
             </div>
           </div>
         </div>
-        <div class="shareButtonContainer">
-          <button class="shareButton" @click="copyToClipboard()">{{ $t("stats.share") }}</button>
+        <div class="flex flex-row gap-2">
+          <button class="button" @click="showLetters = !showLetters">{{ $t("stats.toggleLetters") }}</button>
+          <button class="button flex-grow" @click="copyToClipboard()">{{ $t(clipBoardButtonText) }}</button>
         </div>
       </div>
     </div>
@@ -27,44 +37,72 @@
 
 <script lang="ts" setup>
 import { useGameStore } from "@/stores/game-store";
-import { reactive } from "vue";
+import { ref } from "vue";
 import PopupComponent from "./PopupComponent.vue";
+import html2canvas from "html2canvas";
 
 function closeStats() {
   statsOpen.value = false;
 }
 
-const clipBoardButtonText = reactive({
-  value: "share",
-});
-
-const statsOpen = reactive({
-  value: true,
-});
+const showLetters = ref(true);
+const clipBoardButtonText = ref("stats.share");
+const statsOpen = ref(true);
 
 function copyToClipboard() {
-  clipBoardButtonText.value = "copied to clipboard!";
-  // todo get link from store
-  navigator.clipboard.writeText("link");
+  const grid = document.getElementById("FinalGameGrid");
+  if (!grid) {
+    console.error("grid not found");
+    return;
+  }
+  html2canvas(grid).then((canvas) =>
+    canvas.toBlob((blob) => {
+      if (!blob) {
+        console.error("blob not found");
+        return;
+      }
+      navigator.clipboard
+        .write([new ClipboardItem({ "image/png": blob })])
+        .then(() => {
+          clipBoardButtonText.value = "stats.copied";
+          setTimeout(() => {
+            clipBoardButtonText.value = "stats.share";
+          }, 3000);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    })
+  );
 }
 
 const gameState = useGameStore();
 </script>
 
-<style lang="scss">
-.grid {
+<style lang="scss" scoped>
+.customGrid {
   @apply grid-cols-5 grid-rows-6 justify-center w-auto;
 }
 
-.gridContainer {
-  @apply flex flex-col justify-center items-center w-full h-full mb-6;
-}
 .popUpWindowGrid {
-  @apply flex flex-col w-full h-full;
+  @apply flex flex-col w-full h-full m-5;
+}
+
+$gap-size: 5px;
+
+.grid-width {
+  max-width: calc(450px + 4 * $gap-size);
+  width: calc(50vw + 4 * $gap-size);
+  gap: $gap-size;
 }
 
 .gridItem {
-  @apply m-1 w-10 h-10 font-bold text-white flex flex-col justify-center items-center bg-gray-100 rounded-lg select-none;
+  @apply flex justify-center items-center rounded-lg font-bold bg-gray-100 select-none;
+  width: 10vw;
+  max-width: 90px;
+  height: 10vw;
+  max-height: 90px;
+  font-size: 3vw;
 
   &.not-included {
     @apply bg-gray-500;
@@ -82,8 +120,10 @@ const gameState = useGameStore();
   }
 }
 
-.winStateText {
-  @apply flex flex-col m-10 text-black font-bold justify-center items-center w-full h-full text-4xl text-center;
+@media screen and (orientation: landscape) {
+  .gridItem {
+    font-size: 2rem;
+  }
 }
 
 .statsHeadline {
@@ -94,8 +134,8 @@ const gameState = useGameStore();
   @apply text-black text-base;
 }
 
-.shareButton {
-  @apply font-bold text-lg duration-200 bg-slate-400 overflow-hidden rounded-xl w-full h-auto mt-5 p-4 text-center select-none;
+.button {
+  @apply font-bold text-lg duration-200 bg-slate-400 overflow-hidden rounded-xl h-auto mt-5 p-4 text-center select-none;
 
   &:hover {
     @apply bg-blue-500;
