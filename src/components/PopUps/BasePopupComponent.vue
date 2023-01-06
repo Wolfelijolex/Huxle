@@ -30,7 +30,7 @@ function closePopUp() {
 }
 
 .popUpWindow {
-  @apply absolute flex top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 portrait:w-11/12 landscape:w-auto h-auto bg-white rounded-lg drop-shadow-lg;
+  @apply absolute flex top-2/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 portrait:w-11/12 landscape:w-auto h-auto bg-white rounded-lg shadow-2xl;
 }
 
 .closeButton {

@@ -7,8 +7,7 @@
       correct: props.state === 'correct',
       wider: !!$slots.viewer,
     }"
-    class="text-3xl font-bold text-center landscape:rounded-xl portrait:rounded-md bg-slate-600"
-  >
+    class="text-3xl font-bold text-center landscape:rounded-xl portrait:rounded-md bg-slate-600 shadow-xl">
     <slot name="viewer">
       {{ props.character }}
     </slot>
