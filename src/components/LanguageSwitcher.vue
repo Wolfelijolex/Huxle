@@ -14,10 +14,10 @@
   </PopupComponent>
 
   <div>
-    <ul class="flex gap-2 text-sm">
+    <ul class="flex gap-2 text-sm text-white text-base font-normal align-middle pt-2 pb-2">
       <li v-for="availableLocale in availableLocales" :key="availableLocale">
         <button
-          class="rounded-full secondary"
+          class="text-sm text-white text-base font-normal pt-1 pb-1 pl-4 pr-4 duration-200 hover:bg-slate-500 rounded-xl"
           :class="{ active: availableLocale === locale }"
           @click="changeLocale(availableLocale)"
         >
@@ -67,7 +67,7 @@ function switchLocale() {
 
 <style lang="scss" scoped>
 .active {
-  @apply text-blue-600;
+  @apply bg-gray-900 text-white ;
 }
 
 .buttonContainer {
