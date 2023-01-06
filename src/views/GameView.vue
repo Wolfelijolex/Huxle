@@ -45,10 +45,8 @@ watch(locale, () => {
 });
 
 function resetGame(language: string) {
-  if (gameStore.endTimestamp !== 0) {
-    return;
-  }
-
+  gameWon.value = false;
+  showStats.value = false;
   lineStore.reset();
   gameStore.reset();
   try {

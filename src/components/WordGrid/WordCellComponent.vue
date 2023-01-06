@@ -7,7 +7,7 @@
       correct: props.state === 'correct',
       wider: !!$slots.viewer,
     }"
-    class="text-3xl font-bold text-center border-4"
+    class="text-3xl font-bold text-center border-2 rounded"
   >
     <slot name="viewer">
       {{ props.character }}
@@ -36,9 +36,9 @@ div {
     line-height: $base * 1.5 * 0.9;
   }
   @media screen and (min-width: 1200px) {
-    width: $base * 2.0;
-    height: $base * 2.0;
-    line-height: $base * 2.0 * 0.9;
+    width: $base * 2;
+    height: $base * 2;
+    line-height: $base * 2 * 0.9;
   }
 }
 </style>

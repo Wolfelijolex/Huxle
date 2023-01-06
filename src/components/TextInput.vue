@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-const id = `input-${crypto.randomUUID()}`;
+const id = crypto.getRandomValues(new Uint8Array(16)).reduce((acc, val) => acc + val.toString(16), "");
 
 const props = defineProps({
   label: {

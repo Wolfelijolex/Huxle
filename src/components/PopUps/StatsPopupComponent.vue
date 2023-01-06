@@ -9,8 +9,11 @@
         <div class="statsText">{{ $t("stats.tries", { value: gameState.allTries.length / 5 }) }}</div>
       </div>
       <div class="w-full h-full mb-6">
-        <div class=gridContainer>
-          <div id="FinalGameGrid" class="grid grid-rows-6 grid-cols-5 grid-width portrait:justify landscape:ml-6 landscape:mr-6">
+        <div class="gridContainer">
+          <div
+            id="FinalGameGrid"
+            class="grid grid-rows-6 grid-cols-5 grid-width portrait:justify landscape:ml-6 landscape:mr-6"
+          >
             <div v-for="i in 30" :key="i">
               <div
                 :class="{
@@ -27,9 +30,13 @@
             </div>
           </div>
         </div>
-        <div class="flex flex-row gap-2">
-          <button class="button" @click="showLetters = !showLetters">{{ $t("stats.toggleLetters") }}</button>
-          <button class="button flex-grow" @click="copyToClipboard()">{{ $t(clipBoardButtonText) }}</button>
+        <div class="flex flex-row gap-2 mt-4">
+          <button class="button" @click="showLetters = !showLetters">
+            {{ $t(`stats.${showLetters ? "hideLetters" : "showLetters"}`) }}
+          </button>
+          <button class="button flex-grow" :disabled="!copyButtonActive" @click="copyToClipboard()">
+            {{ $t(clipBoardButtonText) }}
+          </button>
         </div>
       </div>
     </div>
@@ -49,32 +56,37 @@ function closeStats() {
 const showLetters = ref(true);
 const clipBoardButtonText = ref("stats.share");
 const statsOpen = ref(true);
+const copyButtonActive = ref(true);
 
-function copyToClipboard() {
+/**
+ * This function will only work in secure contexts (HTTPS).
+ * Addictionally, Safari will not allow to copy something to the clipboard after a delay
+ * like waiting for the html2canvas to finish.
+ */
+async function copyToClipboard() {
   const grid = document.getElementById("FinalGameGrid");
   if (!grid) {
     console.error("grid not found");
     return;
   }
-  html2canvas(grid).then((canvas) =>
-    canvas.toBlob((blob) => {
-      if (!blob) {
-        console.error("blob not found");
-        return;
-      }
-      navigator.clipboard
-        .write([new ClipboardItem({ "image/png": blob })])
-        .then(() => {
-          clipBoardButtonText.value = "stats.copied";
-          setTimeout(() => {
-            clipBoardButtonText.value = "stats.share";
-          }, 3000);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    })
-  );
+
+  try {
+    const canvas = await html2canvas(grid);
+    const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve));
+    if (!blob) {
+      throw new Error("blob is null");
+    }
+
+    await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+    clipBoardButtonText.value = "stats.copied";
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    clipBoardButtonText.value = "stats.share";
+  } catch (e) {
+    clipBoardButtonText.value = "errors.clipboard";
+    copyButtonActive.value = false;
+    console.error(e);
+  }
 }
 
 const gameState = useGameStore();
@@ -144,6 +156,10 @@ $gap-size: 5px;
 
   &:active {
     @apply bg-blue-600;
+  }
+
+  &:disabled {
+    @apply bg-gray-300 cursor-default;
   }
 }
 </style>

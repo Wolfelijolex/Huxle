@@ -15,7 +15,7 @@
     </div>
   </PopupComponent>
 
-  <form @submit.prevent="createLink()" class="flex flex-col">
+  <form @submit.prevent="createLink()" class="flex flex-col mx-2">
     <div class="font-bold my-4">{{ $t("admin.create") }}</div>
     <TextInput label="admin.englishWord" v-model="englishWord" :invalid="!isEnglishWordValid" />
     <TextInput label="admin.germanWord" v-model="germanWord" :invalid="!isGermanWordValid" />

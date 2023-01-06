@@ -30,11 +30,12 @@ const emit = defineEmits(["keyPressed"]);
 </script>
 
 <style lang="scss" scoped>
+$width: 1.75rem;
+$height: 2.5rem;
+$lineHeight: 2.5rem;
+$widers: 3.25rem;
+
 div {
-  $width: 1.75rem;
-  $height: 2.5rem;
-  $lineHeight: 2.5rem;
-  $widers: 3.25rem;
   width: $width * 0.8;
   height: $height * 0.8;
   line-height: $lineHeight * 0.8;
