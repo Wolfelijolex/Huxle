@@ -8,7 +8,7 @@
       correct: props.state === 'correct',
       wider: !!$slots.viewer,
     }"
-    class="rounded text-sm font-bold cursor-pointer text-center border hover:border-gray-500"
+    class="text-sm font-bold cursor-pointer text-center bg-gray-800 hover:bg-gray-500 portrait:rounded-md landscape:rounded-xl"
   >
     <slot name="viewer">
       {{ props.char.toUpperCase() }}
