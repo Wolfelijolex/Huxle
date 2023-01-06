@@ -9,19 +9,21 @@
         <div class="statsText">{{ $t("stats.tries", { value: gameState.allTries.length / 5 }) }}</div>
       </div>
       <div class="w-full h-full mb-6">
-        <div id="FinalGameGrid" class="grid grid-rows-6 grid-cols-5 grid-width">
-          <div v-for="i in 30" :key="i">
-            <div
-              :class="{
-                gridItem: true,
-                'not-included': gameState.allTries[i - 1]?.state === 'not-included',
-                'wrong-pos': gameState.allTries[i - 1]?.state === 'wrong-pos',
-                correct: gameState.allTries[i - 1]?.state === 'correct',
-              }"
-            >
-              <span v-if="showLetters">
-                {{ gameState.allTries[i - 1]?.char ?? "" }}
-              </span>
+        <div class=gridContainer>
+          <div id="FinalGameGrid" class="grid grid-rows-6 grid-cols-5 grid-width portrait:justify landscape:ml-6 landscape:mr-6">
+            <div v-for="i in 30" :key="i">
+              <div
+                :class="{
+                  gridItem: true,
+                  'not-included': gameState.allTries[i - 1]?.state === 'not-included',
+                  'wrong-pos': gameState.allTries[i - 1]?.state === 'wrong-pos',
+                  correct: gameState.allTries[i - 1]?.state === 'correct',
+                }"
+              >
+                <span v-if="showLetters">
+                  {{ gameState.allTries[i - 1]?.char ?? "" }}
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -86,17 +88,21 @@ const gameState = useGameStore();
 $gap-size: 5px;
 
 .grid-width {
-  max-width: calc(450px + 4 * $gap-size);
+  max-width: calc(350px + 4 * $gap-size);
   width: calc(50vw + 4 * $gap-size);
   gap: $gap-size;
 }
 
+.gridContainer {
+  @apply flex justify-center items-center rounded-lg;
+}
+
 .gridItem {
-  @apply flex justify-center items-center rounded-lg font-bold bg-gray-100 select-none;
+  @apply flex justify-center items-center rounded-lg font-bold portrait:text-sm bg-gray-100 select-none;
   width: 10vw;
-  max-width: 90px;
+  max-width: 70px;
   height: 10vw;
-  max-height: 90px;
+  max-height: 70px;
   font-size: 3vw;
 
   &.not-included {
@@ -122,15 +128,15 @@ $gap-size: 5px;
 }
 
 .statsHeadline {
-  @apply text-black font-bold text-4xl;
+  @apply text-black font-bold portrait:text-2xl text-4xl;
 }
 
 .statsText {
-  @apply text-black text-base;
+  @apply text-black portrait:text-sm text-base;
 }
 
 .button {
-  @apply font-bold text-lg duration-200 bg-slate-400 overflow-hidden rounded-xl h-auto mt-5 p-4 text-center select-none;
+  @apply font-bold portrait:text-base portrait:font-semibold text-lg duration-200 bg-slate-400 overflow-hidden rounded-xl h-auto mt-5 p-4 text-center select-none;
 
   &:hover {
     @apply bg-blue-500;

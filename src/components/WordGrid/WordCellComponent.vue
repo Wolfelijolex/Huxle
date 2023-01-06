@@ -36,9 +36,9 @@ div {
     line-height: $base * 1.5 * 0.9;
   }
   @media screen and (min-width: 1200px) {
-    width: $base * 2.5;
-    height: $base * 2.5;
-    line-height: $base * 2.5 * 0.9;
+    width: $base * 2.0;
+    height: $base * 2.0;
+    line-height: $base * 2.0 * 0.9;
   }
 }
 </style>

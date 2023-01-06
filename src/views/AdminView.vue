@@ -72,7 +72,7 @@ function copyToClipboard(value: string) {
 }
 
 .urlShareButton {
-  @apply font-bold duration-200 text-white bg-slate-400 overflow-hidden  rounded-md w-28 text-center select-none;
+  @apply font-bold duration-200 text-white bg-slate-400 overflow-hidden rounded-md portrait:w-44 landscape:w-20 text-center select-none;
 
   &:hover {
     @apply bg-slate-500;
