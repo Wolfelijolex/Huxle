@@ -1,7 +1,6 @@
-import { describe, expect, test, vitest } from "vitest";
+import { describe, expect, test } from "vitest";
 import PopupComponentVue from "@/components/PopUps/BasePopupComponent.vue";
 import { mount } from "@vue/test-utils";
-import { wrap } from "module";
 
 describe("BasePopUpComponent.vue", () => {
   test("should not render when false", () => {
@@ -24,18 +23,18 @@ describe("BasePopUpComponent.vue", () => {
     const content = wrapper.findAll("div");
     expect(content).not.toStrictEqual([]);
   });
-  test("should render close button and emit event", () => { 
+  test("should render close button and emit event", () => {
     const wrapper = mount(PopupComponentVue, {
       propsData: {
         showCloseButton: true,
         showPopup: true,
       },
     });
-    const close =  wrapper.findAll("div").find((div) => div.text() === "x");
+    const close = wrapper.findAll("div").find((div) => div.text() === "x");
     expect(close).toBeDefined();
     expect(close?.text()).toBe("x");
     close?.trigger("click");
-    wrapper.vm.$nextTick(() => { 
+    wrapper.vm.$nextTick(() => {
       expect(wrapper.emitted()).toHaveProperty("click");
     });
   });
