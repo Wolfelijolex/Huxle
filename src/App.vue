@@ -7,7 +7,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import Navbar from "./components/NavbarComponent.vue";
 import { useWindowEventListener } from "./composables/event";
 
@@ -23,7 +23,7 @@ setScreenHeight();
 useWindowEventListener("resize", setScreenHeight);
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .custom-fullheight {
   height: calc(100 * var(--vh));
 }

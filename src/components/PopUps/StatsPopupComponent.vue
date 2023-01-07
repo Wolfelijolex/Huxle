@@ -1,35 +1,15 @@
 <template>
-  <PopupComponent :show-close-button="true" :show-popup="statsOpen" @close-popup="closeStats()">
+  <PopupComponent :show-close-button="true" :show-popup="statsOpen" @close-popup="statsOpen = false">
     <div class="popUpWindowGrid">
       <div class="py-8">
         <div class="statsHeadline">
           {{ $t("stats.headline") }}
         </div>
-        <div class="statsText">{{ $t("stats.time", { time: gameState.totalTime }) }}</div>
-        <div class="statsText">{{ $t("stats.tries", { value: gameState.allTries.length / 5 }) }}</div>
+        <div class="statsText">{{ $t("stats.time", { time: gameStore.totalTime }) }}</div>
+        <div class="statsText">{{ $t("stats.tries", { value: gameStore.tries.length }) }}</div>
       </div>
       <div class="w-full h-full mb-6">
-        <div class="gridContainer">
-          <div
-            id="FinalGameGrid"
-            class="grid grid-rows-6 grid-cols-5 grid-width portrait:justify landscape:ml-6 landscape:mr-6"
-          >
-            <div v-for="i in 30" :key="i">
-              <div
-                :class="{
-                  gridItem: true,
-                  'not-included': gameState.allTries[i - 1]?.state === 'not-included',
-                  'wrong-pos': gameState.allTries[i - 1]?.state === 'wrong-pos',
-                  correct: gameState.allTries[i - 1]?.state === 'correct',
-                }"
-              >
-                <span v-if="showLetters">
-                  {{ gameState.allTries[i - 1]?.char ?? "" }}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <SimpleWordGrid :showLetters="showLetters" />
         <div class="flex flex-row gap-2 mt-4">
           <button class="button" @click="showLetters = !showLetters">
             {{ $t(`stats.${showLetters ? "hideLetters" : "showLetters"}`) }}
@@ -48,15 +28,14 @@ import { useGameStore } from "@/stores/game-store";
 import { ref } from "vue";
 import PopupComponent from "@/components/PopUps/BasePopupComponent.vue";
 import html2canvas from "html2canvas";
-
-function closeStats() {
-  statsOpen.value = false;
-}
+import SimpleWordGrid from "../WordGrid/SimpleWordGridComponent.vue";
 
 const showLetters = ref(true);
 const clipBoardButtonText = ref("stats.share");
 const statsOpen = ref(true);
 const copyButtonActive = ref(true);
+
+const gameStore = useGameStore();
 
 /**
  * This function will only work in secure contexts (HTTPS).
@@ -88,55 +67,11 @@ async function copyToClipboard() {
     console.error(e);
   }
 }
-
-const gameState = useGameStore();
 </script>
 
 <style lang="scss" scoped>
 .popUpWindowGrid {
   @apply flex flex-col w-full h-full m-5;
-}
-
-$gap-size: 5px;
-
-.grid-width {
-  max-width: calc(350px + 4 * $gap-size);
-  width: calc(50vw + 4 * $gap-size);
-  gap: $gap-size;
-}
-
-.gridContainer {
-  @apply flex justify-center items-center rounded-lg;
-}
-
-.gridItem {
-  @apply flex justify-center items-center rounded-lg font-bold portrait:text-sm bg-gray-100 select-none;
-  width: 10vw;
-  max-width: 70px;
-  height: 10vw;
-  max-height: 70px;
-  font-size: 3vw;
-
-  &.not-included {
-    @apply bg-gray-500;
-  }
-
-  &.wrong-pos {
-    @apply bg-yellow-500;
-  }
-
-  &.correct {
-    @apply bg-green-500;
-    &:hover {
-      @apply animate-pulse;
-    }
-  }
-}
-
-@media screen and (orientation: landscape) {
-  .gridItem {
-    font-size: 2rem;
-  }
 }
 
 .statsHeadline {

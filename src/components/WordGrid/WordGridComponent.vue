@@ -32,7 +32,8 @@ function getTriesForRow(index: number) {
     return props.currentLine;
   }
 
-  return new Array(5).fill({ char: "", state: "fresh" });
+  return new Array<Key>(5).fill({ char: "", state: "fresh" });
 }
 </script>
-<style lang="scss"></style>
+
+<style lang="scss" scoped></style>
