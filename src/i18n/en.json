@@ -1,5 +1,5 @@
 {
-  "huxle": "Huxle",
+  "huxle": "HUXLE",
   "languages": {
     "de": "Deutsch",
     "en": "English"
@@ -36,11 +36,13 @@
     "time": "Time: { time }s",
     "tries": "Tries: { value }",
     "copied": "Copied to clipboard!",
-    "share": "Copy image to clipboard.",
-    "toggleLetters": "Show/hide letters"
+    "share": "Copy image to clipboard",
+    "showLetters": "Show letters",
+    "hideLetters": "Hide letters"
   },
 
   "errors": {
+    "clipboard": "Browser Error",
     "switchLang": "Switch Language",
     "switchLangText": "Do you really want to discard your progress and switch languages?",
     "invalidLinkText": "Sorry, but the given link does not contain valid game settings.",

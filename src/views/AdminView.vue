@@ -9,13 +9,13 @@
           {{ url }}
         </div>
         <button class="urlShareButton" @click="copyToClipboard(url)" :title="$t('global.copyToClipboard')">
-          {{ "📋" }}
+          {{ showTick ? "✅" : "📋" }}
         </button>
       </div>
     </div>
   </PopupComponent>
 
-  <form @submit.prevent="createLink()" class="flex flex-col">
+  <form @submit.prevent="createLink()" class="flex flex-col mx-2">
     <div class="font-bold my-4">{{ $t("admin.create") }}</div>
     <TextInput label="admin.englishWord" v-model="englishWord" :invalid="!isEnglishWordValid" />
     <TextInput label="admin.germanWord" v-model="germanWord" :invalid="!isGermanWordValid" />
@@ -29,6 +29,7 @@
 <script lang="ts" setup>
 import PopupComponent from "@/components/PopUps/BasePopupComponent.vue";
 import TextInput from "@/components/TextInput.vue";
+import { useToggleTwice } from "@/composables/toggle-twice";
 import { toEncodedUrl, type GameSettings } from "@/utils/encoder.util";
 import { isValidWord } from "@/utils/game.util";
 import { computed, ref } from "vue";
@@ -41,6 +42,7 @@ const isGermanWordValid = computed(() => isValidWord(germanWord.value));
 
 const url = ref("");
 const showPopup = ref(false);
+const showTick = ref(false);
 
 function createLink() {
   const data: GameSettings = {
@@ -58,6 +60,7 @@ function createLink() {
 
 function copyToClipboard(value: string) {
   navigator.clipboard.writeText(value);
+  useToggleTwice(showTick);
 }
 </script>
 
@@ -72,7 +75,7 @@ function copyToClipboard(value: string) {
 }
 
 .urlShareButton {
-  @apply font-bold duration-200 text-white bg-slate-400 overflow-hidden  rounded-md w-28 text-center select-none;
+  @apply font-bold duration-200 text-white bg-slate-400 overflow-hidden rounded-md portrait:w-44 landscape:w-20 text-center select-none;
 
   &:hover {
     @apply bg-slate-500;

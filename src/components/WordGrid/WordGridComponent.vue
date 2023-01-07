@@ -1,6 +1,6 @@
 <template>
   <div class="flex w-full justify-center">
-    <div class="flex flex-col gap-3 w-2/4">
+    <div class="flex flex-col gap-3 w-full">
       <WordLineComponentVue v-for="index in 6" :key="index" :tries="getTriesForRow(index)" />
     </div>
   </div>
@@ -32,7 +32,8 @@ function getTriesForRow(index: number) {
     return props.currentLine;
   }
 
-  return new Array(5).fill({ char: "", state: "fresh" });
+  return new Array<Key>(5).fill({ char: "", state: "fresh" });
 }
 </script>
-<style lang="scss"></style>
+
+<style lang="scss" scoped></style>

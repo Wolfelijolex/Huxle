@@ -1,5 +1,9 @@
 {
-  "huxle": "Huxle",
+  "huxle": "HUXLE",
+  "languages": {
+    "de": "Deutsch",
+    "en": "English"
+  },
   "global": {
     "admin": "Admin",
     "copyToClipboard": "Kopieren",
@@ -14,7 +18,7 @@
   },
 
   "winState": {
-    "winMessage0": "GLÜCKWUNSCH!\n Du hast gewonnen!",
+    "winMessage": "GLÜCKWUNSCH!\n Du hast gewonnen!",
     "loseMessage0": "Du bist dumm",
     "loseMessage1": "Du hast verloren! KRINSCH!",
     "loseMessage2": "Du bist ein Verlierer",
@@ -34,10 +38,12 @@
     "tries": "Versuche: { value }",
     "copied": "In Zwischenablage kopiert",
     "share": "Teilen",
-    "toggleLetters": "Buchstaben ein-/ausblenden"
+    "showLetters": "Buchstaben anzeigen",
+    "hideLetters": "Buchstaben verbergen"
   },
 
   "errors": {
+    "clipboard": "Browserfehler",
     "switchLang": "Sprache wechseln",
     "switchLangText": "Möchtest du die Sprache wechseln? Dein bisheriger Spielstand geht dabei verloren.",
     "invalidLinkText": "Der Link ist ungültig. Bitte überprüfe ihn und versuche es erneut.",

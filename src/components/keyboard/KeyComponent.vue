@@ -8,7 +8,7 @@
       correct: props.state === 'correct',
       wider: !!$slots.viewer,
     }"
-    class="rounded text-sm font-bold cursor-pointer text-center border hover:border-gray-500"
+    class="text-sm font-bold cursor-pointer text-center bg-slate-600 hover:bg-slate-400 portrait:rounded-md landscape:rounded-xl shadow-xl"
   >
     <slot name="viewer">
       {{ props.char.toUpperCase() }}
@@ -30,11 +30,12 @@ const emit = defineEmits(["keyPressed"]);
 </script>
 
 <style lang="scss" scoped>
+$width: 1.75rem;
+$height: 2.5rem;
+$lineHeight: 2.5rem;
+$widers: 3.25rem;
+
 div {
-  $width: 1.75rem;
-  $height: 2.5rem;
-  $lineHeight: 2.5rem;
-  $widers: 3.25rem;
   width: $width * 0.8;
   height: $height * 0.8;
   line-height: $lineHeight * 0.8;

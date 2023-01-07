@@ -1,6 +1,6 @@
 <template>
   <template v-if="gameStore.endTimestamp != 0">
-    <WinStatePopup v-if="!showStats" :won="gameWon" />
+    <WinStatePopup v-if="showWinState" :won="gameWon" />
     <StatsPopup v-else />
   </template>
   <ErrorPopup v-if="showErrorPopUp" :errorType="errorType" />
@@ -26,6 +26,7 @@ import { getCharStatesForLine, isCorrectWord } from "@/utils/game.util";
 import { ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
+import { useToggleTwice } from "@/composables/toggle-twice";
 
 const lineStore = useCurrentLineStore();
 const gameStore = useGameStore();
@@ -35,7 +36,7 @@ const { locale } = useI18n();
 const gameWon = ref(false);
 const errorType = ref<Error>("error");
 const showErrorPopUp = ref(false);
-const showStats = ref(false);
+const showWinState = ref(false);
 
 useKeyboard(keyPressed);
 resetGame(locale.value);
@@ -45,10 +46,8 @@ watch(locale, () => {
 });
 
 function resetGame(language: string) {
-  if (gameStore.endTimestamp !== 0) {
-    return;
-  }
-
+  gameWon.value = false;
+  showWinState.value = false;
   lineStore.reset();
   gameStore.reset();
   try {
@@ -114,10 +113,7 @@ function endGame(hasWon: boolean) {
   gameWon.value = hasWon;
   gameStore.setEndTimestamp(Date.now());
 
-  // After 2 seconds, show stats
-  setTimeout(() => {
-    showStats.value = true;
-  }, 2000);
+  useToggleTwice(showWinState);
 }
 </script>
 
