@@ -9,7 +9,7 @@
           {{ url }}
         </div>
         <button class="urlShareButton" @click="copyToClipboard(url)" :title="$t('global.copyToClipboard')">
-          {{ "📋" }}
+          {{ showTick ? "✅" : "📋" }}
         </button>
       </div>
     </div>
@@ -29,6 +29,7 @@
 <script lang="ts" setup>
 import PopupComponent from "@/components/PopUps/BasePopupComponent.vue";
 import TextInput from "@/components/TextInput.vue";
+import { useToggleTwice } from "@/composables/toggle-twice";
 import { toEncodedUrl, type GameSettings } from "@/utils/encoder.util";
 import { isValidWord } from "@/utils/game.util";
 import { computed, ref } from "vue";
@@ -41,6 +42,7 @@ const isGermanWordValid = computed(() => isValidWord(germanWord.value));
 
 const url = ref("");
 const showPopup = ref(false);
+const showTick = ref(false);
 
 function createLink() {
   const data: GameSettings = {
@@ -58,6 +60,7 @@ function createLink() {
 
 function copyToClipboard(value: string) {
   navigator.clipboard.writeText(value);
+  useToggleTwice(showTick);
 }
 </script>
 
