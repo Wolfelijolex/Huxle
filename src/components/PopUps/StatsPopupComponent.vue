@@ -14,8 +14,8 @@
           <button class="button" @click="showLetters = !showLetters">
             {{ $t(`stats.${showLetters ? "hideLetters" : "showLetters"}`) }}
           </button>
-          <button class="button flex-grow" :disabled="!copyButtonActive" @click="copyToClipboard()">
-            {{ $t(clipBoardButtonText) }}
+          <button class="button flex-grow" :disabled="finalGameGridBlob == null" @click="copyToClipboard()">
+            {{ finalGameGridBlob == null ? $t("errors.clipboard") : $t(clipBoardButtonText) }}
           </button>
         </div>
       </div>
@@ -25,28 +25,29 @@
 
 <script lang="ts" setup>
 import { useGameStore } from "@/stores/game-store";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import PopupComponent from "@/components/PopUps/BasePopupComponent.vue";
 import html2canvas from "html2canvas";
 import SimpleWordGrid from "../WordGrid/SimpleWordGridComponent.vue";
 
-const showLetters = ref(true);
-const clipBoardButtonText = ref("stats.share");
-const statsOpen = ref(true);
-const copyButtonActive = ref(true);
-
 const gameStore = useGameStore();
 
-/**
- * This function will only work in secure contexts (HTTPS).
- * Addictionally, Safari will not allow to copy something to the clipboard after a delay
- * like waiting for the html2canvas to finish.
- */
-async function copyToClipboard() {
+const showLetters = ref(false);
+const clipBoardButtonText = ref("stats.share");
+const statsOpen = ref(true);
+const finalGameGridBlob = ref<Blob | null>(null);
+
+onMounted(() => {
+  renderGrid().then((res) => {
+    finalGameGridBlob.value = res;
+  });
+});
+
+async function renderGrid() {
   const grid = document.getElementById("FinalGameGrid");
   if (!grid) {
     console.error("grid not found");
-    return;
+    return null;
   }
 
   try {
@@ -55,17 +56,29 @@ async function copyToClipboard() {
     if (!blob) {
       throw new Error("blob is null");
     }
-
-    await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
-    clipBoardButtonText.value = "stats.copied";
-
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    clipBoardButtonText.value = "stats.share";
+    return blob;
   } catch (e) {
-    clipBoardButtonText.value = "errors.clipboard";
-    copyButtonActive.value = false;
     console.error(e);
+    return null;
   }
+}
+
+function copyToClipboard() {
+  if (!finalGameGridBlob.value) {
+    return;
+  }
+  navigator.clipboard
+    .write([new ClipboardItem({ "image/png": finalGameGridBlob.value })])
+    .then(() => {
+      clipBoardButtonText.value = "stats.copied";
+      setTimeout(() => {
+        clipBoardButtonText.value = "stats.share";
+      }, 2000);
+    })
+    .catch(() => {
+      clipBoardButtonText.value = "errors.clipboard";
+      finalGameGridBlob.value = null;
+    });
 }
 </script>
 

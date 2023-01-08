@@ -5,7 +5,7 @@
 - Wolfgang Schwendtbauer (S2210629020)
 - Alexander Gärtner (S2210629003)
 - Felix Rader (S2210629018)
-- Johanna Krennhuber (S2210629010)
+- ~~Johanna Krennhuber (S2210629010)~~
 
 ## Setup and development
 
